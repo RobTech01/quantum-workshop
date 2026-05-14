@@ -477,13 +477,15 @@ button.btn:focus-visible {
         gap: var(--spacing-md);
     }
     .contact-or { display: none; }
+    .email-copy { width: max-content; }
+    .email-copy code { flex: 0 0 auto; word-break: normal; }
 }
 
 .email-copy {
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
     max-width: 100%;
     padding: 0.4rem 0.4rem 0.4rem 0.85rem;
     background-color: var(--color-bg);
@@ -494,11 +496,15 @@ button.btn:focus-visible {
 }
 
 .email-copy code {
+    flex: 1 1 0;
+    min-width: 0;
     font-size: 0.95rem;
     user-select: all;
-    min-width: 0;
     overflow-wrap: anywhere;
+    word-break: break-all;
 }
+
+.email-copy .btn-copy { flex: 0 0 auto; }
 
 .btn-copy {
     font-family: inherit;
