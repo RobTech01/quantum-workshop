@@ -1,0 +1,27 @@
+# robots.txt for The Quantum Workshop
+# All major and AI crawlers welcome — this is a public product page.
+
+User-agent: *
+Allow: /
+
+# AI / LLM crawlers — explicit allow (default behaviour, but stated for clarity)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# TODO: replace YOUR-DOMAIN.example with the published custom domain.
+Sitemap: https://YOUR-DOMAIN.example/sitemap.xml
