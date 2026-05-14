@@ -4,8 +4,8 @@
 
 ## Products
 
-- [Quantego](https://YOUR-DOMAIN.example/#quantego): Authentic-geometry LEGO® models of IBM Quantum System One (49 pieces), System Two (98 pieces), and a 1024-piece high-end edition by Luca Crippa. Single units sold via [Etsy](https://www.etsy.com/de-en/listing/1230799391/quantego-lego-model-of-a-quantum); event/business quantities via direct invoice.
-- [RasQberry](https://YOUR-DOMAIN.example/#rasqberry): Open-source educational hardware — Raspberry Pi + 3D-printed enclosure of IBM Quantum System One/Two, running Qiskit locally or against the IBM cloud. Full project at [rasqberry.org](https://rasqberry.org).
+- [Quantego](https://robtech01.github.io/quantum-workshop/#quantego): Authentic-geometry LEGO® models of IBM Quantum System One (49 pieces), System Two (98 pieces), and a 1024-piece high-end edition by Luca Crippa. Single units sold via [Etsy](https://www.etsy.com/de-en/listing/1230799391/quantego-lego-model-of-a-quantum); event/business quantities via direct invoice.
+- [RasQberry](https://robtech01.github.io/quantum-workshop/#rasqberry): Open-source educational hardware — Raspberry Pi + 3D-printed enclosure of IBM Quantum System One/Two, running Qiskit locally or against the IBM cloud. Full project at [rasqberry.org](https://rasqberry.org).
 - [DoQumentation](https://doqumentation.org): Friendly project — browser-based quantum computing learning resource.
 - [Qoffee-Maker](https://qoffee-maker.org): Adjacent project — a coffee machine controlled by quantum measurement results, built on RasQberry.
 
@@ -19,5 +19,5 @@
 ## Contact
 
 - Direct orders, event pricing, B2B invoicing: [tindiequantumworkshop@gmail.com](mailto:tindiequantumworkshop@gmail.com)
-- Imprint: [/imprint.html](https://YOUR-DOMAIN.example/imprint.html)
-- Privacy: [/privacy.html](https://YOUR-DOMAIN.example/privacy.html)
+- Imprint: [/imprint.html](https://robtech01.github.io/quantum-workshop/imprint.html)
+- Privacy: [/privacy.html](https://robtech01.github.io/quantum-workshop/privacy.html)

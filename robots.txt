@@ -23,5 +23,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# TODO: replace YOUR-DOMAIN.example with the published custom domain.
-Sitemap: https://YOUR-DOMAIN.example/sitemap.xml
+# TODO: replace https://robtech01.github.io/quantum-workshop with the custom domain once chosen (Phase 5).
+Sitemap: https://robtech01.github.io/quantum-workshop/sitemap.xml

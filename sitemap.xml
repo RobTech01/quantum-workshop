@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- TODO: replace YOUR-DOMAIN.example with the published custom domain. -->
+<!-- TODO: replace https://robtech01.github.io/quantum-workshop with the custom domain once chosen (Phase 5). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://YOUR-DOMAIN.example/</loc>
+        <loc>https://robtech01.github.io/quantum-workshop/</loc>
         <lastmod>2026-05-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://YOUR-DOMAIN.example/imprint.html</loc>
+        <loc>https://robtech01.github.io/quantum-workshop/imprint.html</loc>
         <lastmod>2026-05-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://YOUR-DOMAIN.example/imprint.html"/>
-        <xhtml:link rel="alternate" hreflang="de" href="https://YOUR-DOMAIN.example/imprint-de.html"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://YOUR-DOMAIN.example/imprint.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robtech01.github.io/quantum-workshop/imprint.html"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://robtech01.github.io/quantum-workshop/imprint-de.html"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://robtech01.github.io/quantum-workshop/imprint.html"/>
     </url>
     <url>
-        <loc>https://YOUR-DOMAIN.example/imprint-de.html</loc>
+        <loc>https://robtech01.github.io/quantum-workshop/imprint-de.html</loc>
         <lastmod>2026-05-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://YOUR-DOMAIN.example/imprint.html"/>
-        <xhtml:link rel="alternate" hreflang="de" href="https://YOUR-DOMAIN.example/imprint-de.html"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://YOUR-DOMAIN.example/imprint.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robtech01.github.io/quantum-workshop/imprint.html"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://robtech01.github.io/quantum-workshop/imprint-de.html"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://robtech01.github.io/quantum-workshop/imprint.html"/>
     </url>
     <url>
-        <loc>https://YOUR-DOMAIN.example/privacy.html</loc>
+        <loc>https://robtech01.github.io/quantum-workshop/privacy.html</loc>
         <lastmod>2026-05-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://YOUR-DOMAIN.example/privacy.html"/>
-        <xhtml:link rel="alternate" hreflang="de" href="https://YOUR-DOMAIN.example/privacy-de.html"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://YOUR-DOMAIN.example/privacy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robtech01.github.io/quantum-workshop/privacy.html"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://robtech01.github.io/quantum-workshop/privacy-de.html"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://robtech01.github.io/quantum-workshop/privacy.html"/>
     </url>
     <url>
-        <loc>https://YOUR-DOMAIN.example/privacy-de.html</loc>
+        <loc>https://robtech01.github.io/quantum-workshop/privacy-de.html</loc>
         <lastmod>2026-05-14</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="https://YOUR-DOMAIN.example/privacy.html"/>
-        <xhtml:link rel="alternate" hreflang="de" href="https://YOUR-DOMAIN.example/privacy-de.html"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://YOUR-DOMAIN.example/privacy.html"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robtech01.github.io/quantum-workshop/privacy.html"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://robtech01.github.io/quantum-workshop/privacy-de.html"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://robtech01.github.io/quantum-workshop/privacy.html"/>
     </url>
 </urlset>
