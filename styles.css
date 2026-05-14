@@ -481,18 +481,23 @@ button.btn:focus-visible {
 
 .email-copy {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
+    max-width: 100%;
     padding: 0.4rem 0.4rem 0.4rem 0.85rem;
     background-color: var(--color-bg);
     color: var(--color-text);
     border-radius: 2px;
     font-family: var(--font-primary);
+    box-sizing: border-box;
 }
 
 .email-copy code {
     font-size: 0.95rem;
     user-select: all;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .btn-copy {
