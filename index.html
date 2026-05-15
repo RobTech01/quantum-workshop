@@ -45,7 +45,7 @@
                 "sameAs": [
                     "https://quantego.org",
                     "https://rasqberry.org",
-                    "https://www.etsy.com/de-en/listing/1230799391/quantego-lego-model-of-a-quantum"
+                    "https://www.etsy.com/de-en/shop/TheQuantumWorkshop"
                 ]
             },
             {
@@ -65,7 +65,7 @@
                 "url": "https://robtech01.github.io/quantum-workshop/#quantego",
                 "offers": {
                     "@type": "Offer",
-                    "url": "https://www.etsy.com/de-en/listing/1230799391/quantego-lego-model-of-a-quantum",
+                    "url": "https://www.etsy.com/de-en/shop/TheQuantumWorkshop",
                     "priceCurrency": "EUR",
                     "availability": "https://schema.org/InStock"
                 }
@@ -108,16 +108,16 @@
 
         <section class="products-grid" aria-label="Products">
             <!-- QUANTEGO -->
-            <article class="product-card" id="quantego">
+            <article class="product-card interactive" id="quantego" data-open-dialog="dialog-quantego">
                 <div class="product-content">
                     <h2>QUANTEGO</h2>
                     <p class="product-subtitle">Desktop-scale LEGO® models of Quantum Computers.</p>
                     <p>Build your own miniature IBM Quantum System One and System Two models. Developed using authentic
                         design geometry. Designed for STEM education and quantum aficionados.</p>
                     <div class="cta-group">
-                        <a href="https://www.etsy.com/de-en/listing/1230799391/quantego-lego-model-of-a-quantum"
+                        <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop"
                             class="btn primary-btn" target="_blank" rel="noopener"
-                            aria-label="Buy Quantego on Etsy (opens in new tab)">Buy on Etsy</a>
+                            aria-label="Visit The Quantum Workshop on Etsy (opens in new tab)">Buy on Etsy</a>
                         <a href="https://quantego.org" class="btn secondary-btn" target="_blank" rel="noopener"
                             aria-label="Visit quantego.org (opens in new tab)">Visit quantego.org</a>
                         <button type="button" class="btn secondary-btn"
@@ -128,7 +128,7 @@
             </article>
 
             <!-- RASQBERRY -->
-            <article class="product-card" id="rasqberry">
+            <article class="product-card interactive" id="rasqberry" data-open-dialog="dialog-rasqberry">
                 <div class="product-content">
                     <h2>RasQberry</h2>
                     <p class="product-subtitle">Functional Raspberry Pi models of IBM Quantum systems.</p>
@@ -144,6 +144,12 @@
                     </div>
                 </div>
             </article>
+
+            <!-- ORDER CTA STRIP -->
+            <a href="#contact" class="grid-cta">
+                <span class="grid-cta-text">Ready to order? Skip to direct orders &amp; inquiries.</span>
+                <span class="grid-cta-arrow" aria-hidden="true">&rarr;</span>
+            </a>
 
             <!-- DOQUMENTATION -->
             <article class="product-card">
@@ -448,8 +454,8 @@
             </ul>
 
             <div class="cta-group">
-                <a href="https://www.etsy.com/de-en/listing/1230799391/quantego-lego-model-of-a-quantum"
-                    class="btn primary-btn" target="_blank" rel="noopener">Buy single on Etsy</a>
+                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop"
+                    class="btn primary-btn" target="_blank" rel="noopener">Buy on Etsy</a>
                 <a href="#contact" class="btn secondary-btn config-email-link"
                     onclick="this.closest('dialog').close()">Buy on invoice (events)</a>
             </div>

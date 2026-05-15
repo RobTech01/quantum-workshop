@@ -153,6 +153,36 @@ p {
     cursor: pointer;
 }
 
+.product-card.interactive:focus-visible {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+.grid-cta {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-text);
+    color: var(--color-bg);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--color-text);
+    transition: opacity 0.15s ease, transform 0.2s ease;
+}
+
+.grid-cta:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.grid-cta-arrow {
+    font-weight: 800;
+}
+
 .card-hero {
     display: block;
     width: 100%;

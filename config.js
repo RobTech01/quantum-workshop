@@ -105,6 +105,17 @@ Additional Notes (Shipping Destination, Event Deadlines, etc.):
     const mailtoHref = `mailto:${SITE_CONFIG.personal.email}?subject=${emailSubject}&body=${emailBody}`;
     setHref('.config-email-link', mailtoHref);
 
+    // 4b. Whole-card mouse click opens the linked dialog. Mouse-only enhancement: the
+    // inner "Further Info" button stays the canonical control for keyboard / screen-reader
+    // users, so we avoid nesting role=button on a card that contains its own buttons/links.
+    document.querySelectorAll('.product-card.interactive[data-open-dialog]').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('a, button')) return;
+            const dlg = document.getElementById(card.dataset.openDialog);
+            if (dlg && typeof dlg.showModal === 'function') dlg.showModal();
+        });
+    });
+
     // 5. Copy-email affordance for webmail users (mailto: only works with a configured mail client).
     document.querySelectorAll('[data-copy-email]').forEach(btn => {
         const original = btn.textContent;
