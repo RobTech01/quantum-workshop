@@ -300,10 +300,10 @@ const CAM_LERP   = 0.05;
 // theta: 0 = from +Z front, negative = from right, positive = from left
 // phi:   0 = horizontal, 1.57 = top-down
 const PRESETS = [
-    { label: 'Iso',   theta: -0.40, phi: 0.22 },   // default isometric
-    { label: 'Front', theta:  0.00, phi: 0.16 },   // straight front
-    { label: 'Side',  theta: -1.57, phi: 0.20 },   // right side
-    { label: 'Top',   theta: -0.40, phi: 1.12 },   // top-down (same azimuth as iso)
+    { label: 'Iso',   theta:  Math.PI - 0.40, phi: 0.22 },   // front-right isometric  ≈ 2.74
+    { label: 'Front', theta:  Math.PI,          phi: 0.16 },   // true front             ≈ 3.14
+    { label: 'Side',  theta:  Math.PI / 2,      phi: 0.20 },   // right side             ≈ 1.57
+    { label: 'Top',   theta:  Math.PI - 0.40,   phi: 1.12 },   // top-down               ≈ 2.74
 ];
 
 // ── LDraw colours ─────────────────────────────────────────────
