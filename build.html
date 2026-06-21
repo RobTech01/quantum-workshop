@@ -18,11 +18,11 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #080808;
-            color: #fff;
+            background: #f0efed;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+
         .back-link {
             position: fixed;
             top: 1.25rem; left: 1.5rem;
@@ -30,11 +30,11 @@
             font-size: 0.72rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            color: #444;
+            color: #aaa;
             text-decoration: none;
             transition: color 0.2s;
         }
-        .back-link:hover { color: #fff; }
+        .back-link:hover { color: #111; }
 
         #build-wrapper { position: relative; }
 
@@ -47,29 +47,55 @@
         }
         #build-canvas { display: block; width: 100%; height: 100%; }
 
+        /* ── HUD ──────────────────────────────────────── */
         .hud {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             pointer-events: none;
-            padding: 1.5rem 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
         .hud-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .hud-model-name {
-            font-size: 0.68rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #444;
-            padding-top: 0.15rem;
+
+        .hud-brand {
+            font-size: 0.65rem; letter-spacing: 0.18em;
+            text-transform: uppercase; color: #bbb;
+            padding-top: 0.1rem;
         }
-        .hud-step { text-align: right; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #444; }
-        .hud-step-number { font-size: 2.2rem; font-weight: 700; color: #fff; line-height: 1; letter-spacing: -0.02em; }
-        .hud-bottom { display: flex; justify-content: center; flex-direction: column; align-items: center; gap: 0.5rem; }
-        .step-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: #333; height: 1em; }
+
+        .hud-counter { text-align: right; }
+        .hud-step-num {
+            font-size: 2rem; font-weight: 700; color: #111;
+            line-height: 1; letter-spacing: -0.02em;
+        }
+        .hud-step-of {
+            font-size: 0.65rem; letter-spacing: 0.08em;
+            text-transform: uppercase; color: #bbb;
+        }
+
+        /* Step card — bottom centre */
+        .step-card {
+            align-self: center;
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 0.7rem 1.1rem;
+            display: flex; flex-direction: column; gap: 0.2rem;
+            min-width: 180px; max-width: 260px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .step-card-name {
+            font-size: 0.82rem; font-weight: 600; color: #111;
+            letter-spacing: 0.02em;
+        }
+        .step-card-count {
+            font-size: 0.65rem; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #999;
+        }
+
         .scroll-cue {
-            font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #333;
+            align-self: center;
+            font-size: 0.62rem; letter-spacing: 0.18em;
+            text-transform: uppercase; color: #ccc;
             transition: opacity 0.5s;
             animation: nudge 2.2s ease-in-out infinite;
         }
@@ -78,59 +104,91 @@
             50%       { transform: translateY(5px); }
         }
 
+        /* ── Progress rail ───────────────────────────── */
         .progress-rail {
-            position: absolute; right: 1.75rem; top: 50%; transform: translateY(-50%);
-            width: 1px; height: 38vh; background: #1c1c1c; pointer-events: none;
+            position: absolute; right: 1.5rem; top: 50%;
+            transform: translateY(-50%);
+            width: 2px; height: 36vh;
+            background: #e4e4e4; pointer-events: none;
+            border-radius: 1px;
         }
-        .progress-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: #0f62fe; transition: height 0.08s linear; }
+        .progress-fill {
+            width: 100%; height: 0%;
+            background: #0f62fe;
+            transition: height 0.1s linear;
+            border-radius: 1px;
+        }
         .progress-dot {
             position: absolute; left: 50%; transform: translateX(-50%);
-            width: 5px; height: 5px; border-radius: 50%;
-            background: #0f62fe; top: 0%; transition: top 0.08s linear;
-            box-shadow: 0 0 6px #0f62fe;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #0f62fe; top: 0%;
+            transition: top 0.1s linear;
+            box-shadow: 0 0 5px rgba(15,98,254,0.5);
         }
 
-        /* Loading overlay */
+        /* ── Step indicator dots ─────────────────────── */
+        .step-dots {
+            position: absolute; bottom: 1.5rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 6px; pointer-events: none;
+        }
+        .step-dot {
+            width: 5px; height: 5px; border-radius: 50%;
+            background: #ddd; transition: background 0.3s, transform 0.3s;
+        }
+        .step-dot.done    { background: #bbb; }
+        .step-dot.current { background: #0f62fe; transform: scale(1.4); }
+
+        /* ── Loading / error ─────────────────────────── */
         #loading {
             position: absolute; inset: 0;
             display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;
-            background: #080808;
-            transition: opacity 0.6s;
+            background: #f0efed; transition: opacity 0.5s;
         }
         #loading.hidden { opacity: 0; pointer-events: none; }
-        #loading .load-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #444; }
-        .load-bar { width: 120px; height: 1px; background: #1c1c1c; }
+        #loading .load-label {
+            font-size: 0.65rem; letter-spacing: 0.2em;
+            text-transform: uppercase; color: #bbb;
+        }
+        .load-bar { width: 100px; height: 1px; background: #e4e4e4; }
         .load-bar-fill { height: 100%; background: #0f62fe; width: 0%; transition: width 0.3s; }
 
-        /* Error overlay */
         #load-error {
             position: absolute; inset: 0;
-            display: none; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem;
-            background: #080808;
+            display: none; align-items: center; justify-content: center;
+            flex-direction: column; gap: 0.75rem; background: #f0efed;
         }
-        #load-error p { font-size: 0.8rem; color: #555; }
+        #load-error p { font-size: 0.8rem; color: #999; }
         #load-error a { font-size: 0.72rem; color: #0f62fe; text-decoration: none; }
 
+        /* ── Completion ──────────────────────────────── */
         #completion {
             position: absolute; inset: 0;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem;
-            background: rgba(8,8,8,0.82); backdrop-filter: blur(4px);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 1.1rem;
+            background: rgba(240,239,237,0.88); backdrop-filter: blur(6px);
             opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
         }
         #completion.visible { opacity: 1; pointer-events: auto; }
-        #completion .tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #0f62fe; }
-        #completion h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; }
-        #completion p { color: #666; font-size: 0.85rem; max-width: 260px; text-align: center; line-height: 1.5; }
-        #completion .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
-        #completion a {
-            display: inline-block; padding: 0.65rem 1.5rem;
-            font-size: 0.8rem; font-family: inherit; letter-spacing: 0.06em;
-            text-decoration: none; transition: background 0.2s, color 0.2s;
+        #completion .tag {
+            font-size: 0.62rem; letter-spacing: 0.2em;
+            text-transform: uppercase; color: #0f62fe;
         }
-        #completion .btn-primary { background: #0f62fe; color: #fff; }
-        #completion .btn-primary:hover { background: #0353e9; }
-        #completion .btn-secondary { background: transparent; color: #666; border: 1px solid #222; }
-        #completion .btn-secondary:hover { color: #fff; border-color: #444; }
+        #completion h2 {
+            font-size: 1.8rem; font-weight: 700;
+            letter-spacing: -0.03em; color: #111;
+        }
+        #completion p { color: #999; font-size: 0.82rem; max-width: 240px; text-align: center; line-height: 1.55; }
+        #completion .btn-group { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; }
+        #completion a {
+            display: inline-block; padding: 0.6rem 1.4rem;
+            font-size: 0.78rem; font-family: inherit;
+            letter-spacing: 0.05em; text-decoration: none; transition: 0.2s;
+        }
+        #completion .btn-p { background: #0f62fe; color: #fff; }
+        #completion .btn-p:hover { background: #0353e9; }
+        #completion .btn-s { border: 1px solid #ddd; color: #888; }
+        #completion .btn-s:hover { border-color: #aaa; color: #111; }
     </style>
 </head>
 <body>
@@ -143,16 +201,19 @@
 
         <div class="hud">
             <div class="hud-top">
-                <div class="hud-model-name">Quantego &mdash; System One</div>
-                <div class="hud-step">
-                    <div class="hud-step-number"><span id="cur-step">0</span></div>
-                    <div>of <span id="total-steps">—</span> steps</div>
+                <div class="hud-brand">Quantego — System One</div>
+                <div class="hud-counter">
+                    <div class="hud-step-num"><span id="cur-step">0</span></div>
+                    <div class="hud-step-of">of <span id="total-steps">—</span></div>
                 </div>
             </div>
-            <div class="hud-bottom">
-                <div class="step-label" id="step-label">&nbsp;</div>
-                <div class="scroll-cue" id="scroll-cue">↓ &nbsp; Scroll to build</div>
+
+            <div class="step-card" id="step-card">
+                <div class="step-card-name" id="step-name">Loading…</div>
+                <div class="step-card-count" id="step-count">&nbsp;</div>
             </div>
+
+            <div class="scroll-cue" id="scroll-cue">↓ &nbsp; Scroll to build</div>
         </div>
 
         <div class="progress-rail">
@@ -160,11 +221,12 @@
             <div class="progress-dot"  id="progress-dot"></div>
         </div>
 
+        <div class="step-dots" id="step-dots"></div>
+
         <div id="loading">
             <div class="load-label">Loading model</div>
             <div class="load-bar"><div class="load-bar-fill" id="load-bar-fill"></div></div>
         </div>
-
         <div id="load-error">
             <p>Could not load model file.</p>
             <a href="index.html#quantego">Back to Quantego &rarr;</a>
@@ -175,8 +237,9 @@
             <h2>Quantego System One</h2>
             <p>49 pieces. Authentic IBM Quantum geometry. Ready for your desk.</p>
             <div class="btn-group">
-                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop" class="btn-primary" target="_blank" rel="noopener">Buy on Etsy &rarr;</a>
-                <a href="index.html#quantego" class="btn-secondary">Learn More</a>
+                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop"
+                   class="btn-p" target="_blank" rel="noopener">Buy on Etsy &rarr;</a>
+                <a href="index.html#quantego" class="btn-s">Learn More</a>
             </div>
         </div>
     </div>
@@ -197,23 +260,29 @@ import * as THREE from 'three';
 
 // ── CONFIG ────────────────────────────────────────────────────
 const LDR_URL        = 'https://raw.githubusercontent.com/JanLahmann/Quantego/main/Quantego-One/Quantego-One-v05.ldr';
-const S              = 0.05;    // LDraw units → Three.js (1 stud = 1 unit)
-const SCROLL_PER     = 200;     // px of scroll per brick
-const DROP_H         = 7;       // units above final pos bricks drop from
-const DROP_MS        = 500;     // drop animation duration ms
-const CAM_DIST       = 18;      // camera distance from model centre
-const CAM_LERP       = 0.045;   // camera smooth factor per frame
+const S              = 0.05;    // LDraw → Three.js (20 LDU = 1 stud = 1 unit)
+const SCROLL_PER     = 550;     // px per build group
+const DROP_H         = 7;       // units bricks fall from
+const DROP_MS        = 480;     // drop animation ms
+const STAGGER_MS     = 90;      // delay between bricks in same group
+const GLOW_MS        = 2200;    // how long the "new brick" glow lasts
+const CAM_DIST       = 20;
+const CAM_LERP       = 0.04;
 
-// ── LDraw colour table (colours used in this model) ──────────
-const LDRAW_MAT = {
-    0:   new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.70, metalness: 0.15 }),
-    15:  new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.40, metalness: 0.05 }),
-    47:  new THREE.MeshStandardMaterial({ color: 0xd0e8f8, roughness: 0.05, metalness: 0.00,
-                                          transparent: true, opacity: 0.28, side: THREE.DoubleSide }),
+// BG colour — used in scene AND CSS body
+const BG = 0xf0efed;
+
+// ── LDraw colours ─────────────────────────────────────────────
+// Brick materials — each brick gets a .clone() so emissive is independent
+const BASE_MATS = {
+    0:  new THREE.MeshStandardMaterial({ color: 0x1f1f1f, roughness: 0.65, metalness: 0.12 }),
+    15: new THREE.MeshStandardMaterial({ color: 0xf0f0f0, roughness: 0.45, metalness: 0.04 }),
+    47: new THREE.MeshStandardMaterial({ color: 0xc8e0f4, roughness: 0.05, metalness: 0.0,
+                                         transparent: true, opacity: 0.32, side: THREE.DoubleSide }),
 };
-function getMat(id) { return (LDRAW_MAT[id] ?? LDRAW_MAT[0]).clone(); }
+function getMat(id) { return (BASE_MATS[id] ?? BASE_MATS[0]).clone(); }
 
-// ── Part geometry factory (LDraw units → Three.js via scale S) ─
+// ── Part geometries ───────────────────────────────────────────
 const PART_GEO = {
     '3032.dat':  () => new THREE.BoxGeometry(80*S, 8*S, 120*S),
     '3941.dat':  () => new THREE.CylinderGeometry(20*S, 20*S, 24*S, 24),
@@ -224,15 +293,12 @@ const PART_GEO = {
     '59349.dat': () => new THREE.BoxGeometry(20*S, 48*S, 40*S),
     '6636.dat':  () => new THREE.BoxGeometry(120*S, 8*S, 20*S),
 };
-function makeGeo(id) { return (PART_GEO[id] ?? (() => new THREE.BoxGeometry(20*S, 24*S, 20*S)))(); }
+function makeGeo(id) { return (PART_GEO[id] ?? (() => new THREE.BoxGeometry(20*S,24*S,20*S)))(); }
 
 // ── LDR parser ────────────────────────────────────────────────
-// Returns [{name, rotstep:{x,y}, bricks:[{colorId, x,y,z, quat, part, label}]}]
-// Coords already converted to Three.js (Y-up, scaled, centred).
 function parseLDR(text) {
     const groups = [];
-    let cur = { name: 'Central column', bricks: [], rotstep: { x: 12, y: -22 } };
-    const rawBricks = [];
+    let cur = { name: 'Central column', bricks: [], rotstep: { x: 14, y: -22 } };
 
     for (const raw of text.split('\n')) {
         const p = raw.trim().split(/\s+/);
@@ -241,63 +307,56 @@ function parseLDR(text) {
         if (p[0] === '0' && p[1] === 'STUDIOSTEPDESC') {
             groups.push(cur);
             cur = { name: p.slice(2).join(' '), bricks: [], rotstep: cur.rotstep };
-
         } else if (p[0] === '0' && p[1] === 'ROTSTEP') {
             cur = { ...cur, rotstep: { x: parseFloat(p[2]), y: parseFloat(p[3]) } };
-
         } else if (p[0] === '1' && p.length >= 15) {
             const colorId = parseInt(p[1]);
             const lx = parseFloat(p[2]), ly = parseFloat(p[3]), lz = parseFloat(p[4]);
-            const a  = parseFloat(p[5]),  b  = parseFloat(p[6]),  c  = parseFloat(p[7]);
-            const d  = parseFloat(p[8]),  e  = parseFloat(p[9]),  f  = parseFloat(p[10]);
-            const g  = parseFloat(p[11]), h  = parseFloat(p[12]), i  = parseFloat(p[13]);
+            const a=parseFloat(p[5]),  b=parseFloat(p[6]),  c=parseFloat(p[7]);
+            const d=parseFloat(p[8]),  e=parseFloat(p[9]),  f=parseFloat(p[10]);
+            const g=parseFloat(p[11]), h=parseFloat(p[12]), i=parseFloat(p[13]);
             const partId = p[14];
 
-            // Three.js Y-up: negate Y; rotation R_three = F·R_ldr·F, F=diag(1,-1,1)
-            // → [a,-b,c; -d,e,-f; g,-h,i]
+            // LDraw Y-down → Three.js Y-up: R_three = F·R_ldr·F, F=diag(1,-1,1)
             const rotM4 = new THREE.Matrix4().set(
-                 a, -b,  c,  0,
-                -d,  e, -f,  0,
-                 g, -h,  i,  0,
-                 0,  0,  0,  1
+                 a,-b, c, 0,
+                -d, e,-f, 0,
+                 g,-h, i, 0,
+                 0, 0, 0, 1
             );
-            const quat = new THREE.Quaternion().setFromRotationMatrix(rotM4);
-
-            const brick = {
+            cur.bricks.push({
                 colorId, partId,
-                x: lx * S, y: -ly * S, z: lz * S,
-                quat,
-                label: cur.name,
-            };
-            cur.bricks.push(brick);
-            rawBricks.push(brick);
+                x: lx*S, y: -ly*S, z: lz*S,
+                quat: new THREE.Quaternion().setFromRotationMatrix(rotM4),
+            });
         }
     }
     groups.push(cur);
 
-    // Centre the model: X and Z to mean, Y so minimum sits at 0
-    if (rawBricks.length) {
-        const xs = rawBricks.map(b => b.x), zs = rawBricks.map(b => b.z);
-        const cx   = (Math.min(...xs) + Math.max(...xs)) / 2;
-        const cz   = (Math.min(...zs) + Math.max(...zs)) / 2;
-        const minY = Math.min(...rawBricks.map(b => b.y));
-        rawBricks.forEach(b => { b.x -= cx; b.y -= minY; b.z -= cz; });
+    // Centre: X/Z to midpoint, Y so minimum = 0
+    const all = groups.flatMap(g => g.bricks);
+    if (all.length) {
+        const xs = all.map(b=>b.x), zs = all.map(b=>b.z), ys = all.map(b=>b.y);
+        const cx = (Math.min(...xs)+Math.max(...xs))/2;
+        const cz = (Math.min(...zs)+Math.max(...zs))/2;
+        const my = Math.min(...ys);
+        all.forEach(b => { b.x -= cx; b.y -= my; b.z -= cz; });
     }
 
-    return { groups, total: rawBricks.length };
+    return groups;
 }
 
-// ── ROTSTEP → Three.js camera position ───────────────────────
-function rotstepCam(rs, modelMidY, dist) {
-    const el  = THREE.MathUtils.degToRad(rs.x);
+// ── ROTSTEP → camera ──────────────────────────────────────────
+function rotstepCam(rs, midY) {
+    const el  = THREE.MathUtils.degToRad(Math.max(rs.x, 8));
     const raw = ((rs.y % 360) + 540) % 360 - 180;
     const az  = THREE.MathUtils.degToRad(raw);
-    const tgt = new THREE.Vector3(0, modelMidY, 0);
+    const tgt = new THREE.Vector3(0, midY, 0);
     return {
         pos: new THREE.Vector3(
-            tgt.x + dist * Math.cos(el) * Math.sin(az),
-            tgt.y + dist * Math.sin(el),
-            tgt.z + dist * Math.cos(el) * Math.cos(az)
+            tgt.x + CAM_DIST * Math.cos(el) * Math.sin(az),
+            tgt.y + CAM_DIST * Math.sin(el),
+            tgt.z + CAM_DIST * Math.cos(el) * Math.cos(az)
         ),
         target: tgt,
     };
@@ -310,46 +369,44 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled   = true;
 renderer.shadowMap.type      = THREE.PCFSoftShadowMap;
 renderer.toneMapping         = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+renderer.toneMappingExposure = 0.95;
 
-const scene  = new THREE.Scene();
-scene.background = new THREE.Color(0x080808);
-scene.fog        = new THREE.FogExp2(0x080808, 0.014);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(BG);
+scene.fog = new THREE.Fog(BG, 30, 60);
 
 const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 200);
 
-// Lights
-scene.add(new THREE.AmbientLight(0xffffff, 0.28));
+// Lights — tuned for light background so both black and white bricks read
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 
-const key = new THREE.DirectionalLight(0xffffff, 2.1);
-key.position.set(10, 22, 12);
+const key = new THREE.DirectionalLight(0xfff8f0, 1.6);
+key.position.set(8, 20, 10);
 key.castShadow = true;
 key.shadow.mapSize.set(2048, 2048);
-Object.assign(key.shadow.camera, { near: 0.1, far: 80, left: -14, right: 14, top: 14, bottom: -4 });
+Object.assign(key.shadow.camera, { near:0.1, far:80, left:-14, right:14, top:14, bottom:-4 });
 scene.add(key);
 
-const fill = new THREE.DirectionalLight(0x4488ff, 0.45);
-fill.position.set(-12, 4, -8);
+const fill = new THREE.DirectionalLight(0xd0e4ff, 0.5);
+fill.position.set(-10, 6, -6);
 scene.add(fill);
 
-const rim = new THREE.DirectionalLight(0xffffff, 0.3);
-rim.position.set(0, -4, -18);
-scene.add(rim);
+const bounce = new THREE.DirectionalLight(0xffffff, 0.35);
+bounce.position.set(0, -6, 10);
+scene.add(bounce);
 
-const coreGlow = new THREE.PointLight(0x0f62fe, 1.4, 14);
-coreGlow.position.set(0, 3, 0);
-scene.add(coreGlow);
-
-const ground = new THREE.Mesh(
+// Subtle shadow catcher
+const groundMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(60, 60),
-    new THREE.ShadowMaterial({ opacity: 0.45 })
+    new THREE.ShadowMaterial({ opacity: 0.12 })
 );
-ground.rotation.x = -Math.PI / 2;
-ground.position.y = -0.05;
-ground.receiveShadow = true;
-scene.add(ground);
+groundMesh.rotation.x = -Math.PI / 2;
+groundMesh.position.y = -0.05;
+groundMesh.receiveShadow = true;
+scene.add(groundMesh);
 
-const grid = new THREE.GridHelper(40, 40, 0x181818, 0x111111);
+// Very light grid
+const grid = new THREE.GridHelper(40, 40, 0xdddddd, 0xe8e8e8);
 grid.position.y = -0.04;
 scene.add(grid);
 
@@ -363,67 +420,102 @@ function resize() {
 new ResizeObserver(resize).observe(canvas);
 resize();
 
-// ── Animation state ───────────────────────────────────────────
-let drops        = [];   // active drop animations
-let shownCount   = 0;
-let allMeshes    = [];   // flat list of Three.js meshes in build order
-let groupRanges  = [];   // [{start, end, rotstep, name}] for camera per group
-let TOTAL        = 0;
-let modelMidY    = 4;
+// ── State ─────────────────────────────────────────────────────
+let drops         = [];   // active drop animations
+let glows         = [];   // active emissive fade-outs
+let shownGroups   = 0;
+let groups        = [];   // parsed groups with .meshes[]
+let TOTAL_GROUPS  = 0;
+let modelMidY     = 4;
 
 const curPos    = new THREE.Vector3();
 const curTarget = new THREE.Vector3();
 const wantPos   = new THREE.Vector3();
 const wantTarget= new THREE.Vector3();
 
+// Easing
 function easeOutBack(t) {
-    const c1 = 1.70158, c3 = c1 + 1;
-    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    const c1=1.70158, c3=c1+1;
+    return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2);
+}
+function easeInOutQuad(t) { return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+// ── Reveal / hide a group ─────────────────────────────────────
+function revealGroup(gi) {
+    const g = groups[gi];
+    g.meshes.forEach((mesh, i) => {
+        setTimeout(() => {
+            mesh.visible = true;
+            const startY = mesh.userData.finalY + DROP_H;
+            mesh.position.y = startY;
+            drops.push({ mesh, startY, endY: mesh.userData.finalY, elapsed: 0 });
+
+            // Emissive glow on new bricks — skip transparent glass
+            if (!mesh.material.transparent) {
+                mesh.material.emissive.setHex(0x0f62fe);
+                mesh.material.emissiveIntensity = 0.55;
+                glows.push({ mesh, elapsed: 0 });
+            }
+        }, i * STAGGER_MS);
+    });
 }
 
-function setCameraForStep(step) {
-    const group = groupRanges.find(g => step >= g.start && step < g.end) ?? groupRanges[groupRanges.length - 1];
-    const wp = rotstepCam(group.rotstep, modelMidY, CAM_DIST);
+function hideGroup(gi) {
+    groups[gi].meshes.forEach(mesh => {
+        mesh.visible = false;
+        mesh.position.y = mesh.userData.finalY + DROP_H;
+        mesh.material.emissiveIntensity = 0;
+        drops = drops.filter(d => d.mesh !== mesh);
+        glows = glows.filter(d => d.mesh !== mesh);
+    });
+}
+
+// ── Camera for group ──────────────────────────────────────────
+function applyCamForGroup(gi) {
+    const g = groups[Math.min(gi, TOTAL_GROUPS - 1)];
+    const wp = rotstepCam(g.rotstep, modelMidY);
     wantPos.copy(wp.pos);
     wantTarget.copy(wp.target);
 }
 
-function revealBrick(i) {
-    const m = allMeshes[i];
-    m.visible = true;
-    m.position.y = m.userData.finalY + DROP_H;
-    drops.push({ mesh: m, startY: m.position.y, endY: m.userData.finalY, elapsed: 0 });
-}
-
-function hideBrick(i) {
-    allMeshes[i].visible = false;
-    drops = drops.filter(d => d.mesh !== allMeshes[i]);
-    allMeshes[i].position.y = allMeshes[i].userData.finalY + DROP_H;
-}
-
-// ── Scroll handler ────────────────────────────────────────────
-function onScroll() {
-    if (!TOTAL) return;
-    const frac  = window.scrollY / (TOTAL * SCROLL_PER);
-    const step  = Math.min(TOTAL, Math.max(0, Math.round(frac * TOTAL)));
-
-    if (step > shownCount) for (let i = shownCount; i < step; i++) revealBrick(i);
-    else if (step < shownCount) for (let i = step; i < shownCount; i++) hideBrick(i);
-    shownCount = step;
-
-    document.getElementById('cur-step').textContent   = step;
-    const pct = (step / TOTAL * 100).toFixed(1);
+// ── HUD update ────────────────────────────────────────────────
+function updateHUD(gi) {
+    document.getElementById('cur-step').textContent  = gi;
+    const pct = (gi / TOTAL_GROUPS * 100).toFixed(1);
     document.getElementById('progress-fill').style.height = pct + '%';
     document.getElementById('progress-dot').style.top     = pct + '%';
 
-    const label = step > 0 ? (allMeshes[step - 1]?.userData.label ?? '') : '';
-    document.getElementById('step-label').textContent = label;
-    document.getElementById('scroll-cue').style.opacity = window.scrollY > 80 ? '0' : '1';
-    document.getElementById('completion').classList.toggle('visible', step >= TOTAL);
+    const g = groups[gi - 1];
+    if (g) {
+        document.getElementById('step-name').textContent  = g.name;
+        document.getElementById('step-count').textContent =
+            `+${g.meshes.length} brick${g.meshes.length !== 1 ? 's' : ''}`;
+    }
 
-    setCameraForStep(step);
+    // Step dots
+    document.querySelectorAll('.step-dot').forEach((dot, i) => {
+        dot.classList.toggle('done',    i < gi - 1);
+        dot.classList.toggle('current', i === gi - 1);
+    });
+
+    document.getElementById('scroll-cue').style.opacity = window.scrollY > 80 ? '0' : '1';
+    document.getElementById('completion').classList.toggle('visible', gi >= TOTAL_GROUPS);
 }
-window.addEventListener('scroll', onScroll, { passive: true });
+
+// ── Scroll ────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+    if (!TOTAL_GROUPS) return;
+    const gi = Math.min(TOTAL_GROUPS, Math.max(0, Math.floor(window.scrollY / SCROLL_PER)));
+
+    if (gi > shownGroups) {
+        for (let i = shownGroups; i < gi; i++) revealGroup(i);
+    } else if (gi < shownGroups) {
+        for (let i = gi; i < shownGroups; i++) hideGroup(i);
+    }
+    shownGroups = gi;
+    applyCamForGroup(gi);
+    updateHUD(gi);
+}, { passive: true });
 
 // ── Render loop ───────────────────────────────────────────────
 let lastTs = 0;
@@ -432,6 +524,7 @@ function tick(ts) {
     const dt = Math.min(ts - lastTs, 50);
     lastTs = ts;
 
+    // Drop animations
     drops = drops.filter(d => {
         d.elapsed += dt;
         const t = Math.min(d.elapsed / DROP_MS, 1);
@@ -439,78 +532,90 @@ function tick(ts) {
         return t < 1;
     });
 
+    // Emissive glow fade
+    glows = glows.filter(d => {
+        d.elapsed += dt;
+        const t = Math.min(d.elapsed / GLOW_MS, 1);
+        d.mesh.material.emissiveIntensity = 0.55 * (1 - easeInOutQuad(t));
+        return t < 1;
+    });
+
+    // Smooth camera
     curPos.lerp(wantPos, CAM_LERP);
     curTarget.lerp(wantTarget, CAM_LERP);
     camera.position.copy(curPos);
     camera.lookAt(curTarget);
 
-    coreGlow.intensity = 1.2 + Math.sin(ts * 0.0018) * 0.3;
     renderer.render(scene, camera);
 }
 requestAnimationFrame(tick);
 
-// ── Load LDR ─────────────────────────────────────────────────
+// ── Load ──────────────────────────────────────────────────────
 (async () => {
-    const loadBar = document.getElementById('load-bar-fill');
-    loadBar.style.width = '20%';
+    const bar = document.getElementById('load-bar-fill');
+    bar.style.width = '20%';
 
     let text;
     try {
         const resp = await fetch(LDR_URL);
         if (!resp.ok) throw new Error(resp.status);
-        loadBar.style.width = '60%';
+        bar.style.width = '65%';
         text = await resp.text();
-    } catch (e) {
+    } catch {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('load-error').style.display = 'flex';
         return;
     }
 
-    loadBar.style.width = '80%';
-    const { groups, total } = parseLDR(text);
-    TOTAL = total;
+    bar.style.width = '85%';
+    groups = parseLDR(text);
+    TOTAL_GROUPS = groups.length;
 
-    document.getElementById('total-steps').textContent = TOTAL;
-    document.getElementById('scroll-spacer').style.height =
-        (TOTAL * SCROLL_PER + window.innerHeight * 0.6) + 'px';
-
-    // Build meshes
-    let globalIdx = 0;
+    // Build meshes per group
     groups.forEach(group => {
-        const start = globalIdx;
-        group.bricks.forEach(brick => {
+        group.meshes = group.bricks.map(brick => {
             const mesh = new THREE.Mesh(makeGeo(brick.partId), getMat(brick.colorId));
             mesh.quaternion.copy(brick.quat);
             mesh.position.set(brick.x, brick.y, brick.z);
-            mesh.castShadow    = true;
-            mesh.receiveShadow = true;
-            mesh.visible       = false;
+            mesh.castShadow = mesh.receiveShadow = true;
+            mesh.visible = false;
             mesh.userData.finalY = brick.y;
-            mesh.userData.label  = brick.label;
             scene.add(mesh);
-            allMeshes.push(mesh);
-            globalIdx++;
+            return mesh;
         });
-        groupRanges.push({ start, end: globalIdx, rotstep: group.rotstep, name: group.name });
     });
 
-    // Compute model height mid-point for camera targeting
-    const ys = allMeshes.map(m => m.userData.finalY);
-    modelMidY = (Math.min(...ys) + Math.max(...ys)) / 2;
+    // Model mid-point for camera targeting
+    const allY = groups.flatMap(g => g.meshes.map(m => m.userData.finalY));
+    modelMidY = (Math.min(...allY) + Math.max(...allY)) / 2;
 
-    // Set initial camera
-    const wp0 = rotstepCam(groups[0]?.rotstep ?? { x: 12, y: -22 }, modelMidY, CAM_DIST);
-    curPos.copy(wp0.pos);
-    curTarget.copy(wp0.target);
-    wantPos.copy(wp0.pos);
-    wantTarget.copy(wp0.target);
+    // HUD setup
+    document.getElementById('total-steps').textContent = TOTAL_GROUPS;
+    document.getElementById('scroll-spacer').style.height =
+        (TOTAL_GROUPS * SCROLL_PER + window.innerHeight * 0.5) + 'px';
+
+    // Step dots
+    const dotsEl = document.getElementById('step-dots');
+    groups.forEach(() => {
+        const d = document.createElement('div');
+        d.className = 'step-dot';
+        dotsEl.appendChild(d);
+    });
+
+    // Initial camera
+    const wp0 = rotstepCam(groups[0]?.rotstep ?? { x: 14, y: -22 }, modelMidY);
+    curPos.copy(wp0.pos); curTarget.set(0, modelMidY, 0);
+    wantPos.copy(wp0.pos); wantTarget.set(0, modelMidY, 0);
     camera.position.copy(curPos);
     camera.lookAt(curTarget);
 
-    loadBar.style.width = '100%';
+    // Starter card
+    document.getElementById('step-name').textContent  = 'Scroll to start';
+    document.getElementById('step-count').textContent = `${TOTAL_GROUPS} steps · 49 pieces`;
+
+    bar.style.width = '100%';
     setTimeout(() => document.getElementById('loading').classList.add('hidden'), 400);
 })();
 </script>
-
 </body>
 </html>
