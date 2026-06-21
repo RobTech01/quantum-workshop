@@ -15,9 +15,7 @@
             font-display: swap;
             src: url('fonts/inter-latin.woff2') format('woff2');
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #080808;
@@ -25,12 +23,9 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
-
-        /* ── Back link ─────────────────────────────────────── */
         .back-link {
             position: fixed;
-            top: 1.25rem;
-            left: 1.5rem;
+            top: 1.25rem; left: 1.5rem;
             z-index: 200;
             font-size: 0.72rem;
             letter-spacing: 0.12em;
@@ -41,10 +36,7 @@
         }
         .back-link:hover { color: #fff; }
 
-        /* ── Sticky wrapper ────────────────────────────────── */
-        #build-wrapper {
-            position: relative;
-        }
+        #build-wrapper { position: relative; }
 
         #build-stage {
             position: sticky;
@@ -53,14 +45,8 @@
             height: 100dvh;
             overflow: hidden;
         }
+        #build-canvas { display: block; width: 100%; height: 100%; }
 
-        #build-canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ── HUD overlay ───────────────────────────────────── */
         .hud {
             position: absolute;
             inset: 0;
@@ -70,13 +56,7 @@
             flex-direction: column;
             justify-content: space-between;
         }
-
-        .hud-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
+        .hud-top { display: flex; justify-content: space-between; align-items: flex-start; }
         .hud-model-name {
             font-size: 0.68rem;
             letter-spacing: 0.18em;
@@ -84,45 +64,12 @@
             color: #444;
             padding-top: 0.15rem;
         }
-
-        .hud-step {
-            text-align: right;
-            font-size: 0.68rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #444;
-        }
-
-        .hud-step-number {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1;
-            letter-spacing: -0.02em;
-        }
-
-        .hud-bottom {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .step-label {
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: #333;
-            height: 1em;
-            transition: color 0.3s;
-        }
-
+        .hud-step { text-align: right; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #444; }
+        .hud-step-number { font-size: 2.2rem; font-weight: 700; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+        .hud-bottom { display: flex; justify-content: center; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .step-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: #333; height: 1em; }
         .scroll-cue {
-            font-size: 0.65rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #333;
+            font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #333;
             transition: opacity 0.5s;
             animation: nudge 2.2s ease-in-out infinite;
         }
@@ -131,117 +78,59 @@
             50%       { transform: translateY(5px); }
         }
 
-        /* ── Progress rail ─────────────────────────────────── */
         .progress-rail {
-            position: absolute;
-            right: 1.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1px;
-            height: 38vh;
-            background: #1c1c1c;
-            pointer-events: none;
+            position: absolute; right: 1.75rem; top: 50%; transform: translateY(-50%);
+            width: 1px; height: 38vh; background: #1c1c1c; pointer-events: none;
         }
-
-        .progress-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: #0f62fe;
-            transition: height 0.08s linear;
-        }
-
+        .progress-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: #0f62fe; transition: height 0.08s linear; }
         .progress-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #0f62fe;
-            top: 0%;
-            transition: top 0.08s linear;
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 5px; height: 5px; border-radius: 50%;
+            background: #0f62fe; top: 0%; transition: top 0.08s linear;
             box-shadow: 0 0 6px #0f62fe;
         }
 
-        /* ── Completion overlay ────────────────────────────── */
+        /* Loading overlay */
+        #loading {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem;
+            background: #080808;
+            transition: opacity 0.6s;
+        }
+        #loading.hidden { opacity: 0; pointer-events: none; }
+        #loading .load-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: #444; }
+        .load-bar { width: 120px; height: 1px; background: #1c1c1c; }
+        .load-bar-fill { height: 100%; background: #0f62fe; width: 0%; transition: width 0.3s; }
+
+        /* Error overlay */
+        #load-error {
+            position: absolute; inset: 0;
+            display: none; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem;
+            background: #080808;
+        }
+        #load-error p { font-size: 0.8rem; color: #555; }
+        #load-error a { font-size: 0.72rem; color: #0f62fe; text-decoration: none; }
+
         #completion {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1.25rem;
-            background: rgba(8, 8, 8, 0.82);
-            backdrop-filter: blur(4px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease;
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem;
+            background: rgba(8,8,8,0.82); backdrop-filter: blur(4px);
+            opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
         }
-
-        #completion.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #completion .tag {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #0f62fe;
-        }
-
-        #completion h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-        }
-
-        #completion p {
-            color: #666;
-            font-size: 0.85rem;
-            max-width: 260px;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        #completion .btn-group {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
+        #completion.visible { opacity: 1; pointer-events: auto; }
+        #completion .tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #0f62fe; }
+        #completion h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; }
+        #completion p { color: #666; font-size: 0.85rem; max-width: 260px; text-align: center; line-height: 1.5; }
+        #completion .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
         #completion a {
-            display: inline-block;
-            padding: 0.65rem 1.5rem;
-            font-size: 0.8rem;
-            font-family: inherit;
-            letter-spacing: 0.06em;
-            text-decoration: none;
-            transition: background 0.2s, color 0.2s;
+            display: inline-block; padding: 0.65rem 1.5rem;
+            font-size: 0.8rem; font-family: inherit; letter-spacing: 0.06em;
+            text-decoration: none; transition: background 0.2s, color 0.2s;
         }
-
-        #completion .btn-primary {
-            background: #0f62fe;
-            color: #fff;
-        }
+        #completion .btn-primary { background: #0f62fe; color: #fff; }
         #completion .btn-primary:hover { background: #0353e9; }
-
-        #completion .btn-secondary {
-            background: transparent;
-            color: #666;
-            border: 1px solid #222;
-        }
+        #completion .btn-secondary { background: transparent; color: #666; border: 1px solid #222; }
         #completion .btn-secondary:hover { color: #fff; border-color: #444; }
-
-        /* ── Scroll spacer ─────────────────────────────────── */
-        #scroll-spacer {
-            /* height set by JS */
-        }
     </style>
 </head>
 <body>
@@ -252,7 +141,6 @@
     <div id="build-stage">
         <canvas id="build-canvas"></canvas>
 
-        <!-- HUD -->
         <div class="hud">
             <div class="hud-top">
                 <div class="hud-model-name">Quantego &mdash; System One</div>
@@ -267,209 +155,207 @@
             </div>
         </div>
 
-        <!-- Progress rail -->
         <div class="progress-rail">
             <div class="progress-fill" id="progress-fill"></div>
-            <div class="progress-dot" id="progress-dot"></div>
+            <div class="progress-dot"  id="progress-dot"></div>
         </div>
 
-        <!-- Completion -->
+        <div id="loading">
+            <div class="load-label">Loading model</div>
+            <div class="load-bar"><div class="load-bar-fill" id="load-bar-fill"></div></div>
+        </div>
+
+        <div id="load-error">
+            <p>Could not load model file.</p>
+            <a href="index.html#quantego">Back to Quantego &rarr;</a>
+        </div>
+
         <div id="completion">
             <div class="tag">Build complete</div>
             <h2>Quantego System One</h2>
             <p>49 pieces. Authentic IBM Quantum geometry. Ready for your desk.</p>
             <div class="btn-group">
-                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop"
-                   class="btn-primary" target="_blank" rel="noopener">Buy on Etsy &rarr;</a>
+                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop" class="btn-primary" target="_blank" rel="noopener">Buy on Etsy &rarr;</a>
                 <a href="index.html#quantego" class="btn-secondary">Learn More</a>
             </div>
         </div>
     </div>
-
     <div id="scroll-spacer"></div>
 </div>
 
 <script type="importmap">
 {
     "imports": {
-        "three":          "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-        "three/addons/":  "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        "three":         "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
     }
 }
 </script>
 
 <script type="module">
 import * as THREE from 'three';
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 
-// ─────────────────────────────────────────────────────────────
-// CONFIG
-// ─────────────────────────────────────────────────────────────
-const SCROLL_PER_STEP = 280;  // px of scroll consumed per build step
-const DROP_HEIGHT     = 6;    // units above final pos each brick falls from
-const DROP_MS         = 520;  // duration of drop animation in ms
-const CAM_LERP        = 0.04; // camera smoothing factor per frame
+// ── CONFIG ────────────────────────────────────────────────────
+const LDR_URL        = 'https://raw.githubusercontent.com/JanLahmann/Quantego/main/Quantego-One/Quantego-One-v05.ldr';
+const S              = 0.05;    // LDraw units → Three.js (1 stud = 1 unit)
+const SCROLL_PER     = 200;     // px of scroll per brick
+const DROP_H         = 7;       // units above final pos bricks drop from
+const DROP_MS        = 500;     // drop animation duration ms
+const CAM_DIST       = 18;      // camera distance from model centre
+const CAM_LERP       = 0.045;   // camera smooth factor per frame
 
-// ─────────────────────────────────────────────────────────────
-// BUILD STEPS  (placeholder — swap in parsed OBJ groups later)
-//
-// Each entry = one brick revealed on one scroll step.
-// pos   : [x, y, z] final position
-// scale : [w, h, d] size in Three.js units (1 unit ≈ 1 LEGO stud)
-// color : hex
-// label : shown in HUD
-// ─────────────────────────────────────────────────────────────
-const BUILD_STEPS = [
-    // ── Layer 0 — Base plate ──────────────────────────────
-    { pos:[0,   0,    0   ], scale:[8.0, 0.4, 8.0], color:0x2a2a2a, label:'Base plate'         },
-    // ── Layer 1 — Corner posts ───────────────────────────
-    { pos:[-3.5,0.8, -3.5], scale:[1.0, 1.2, 1.0], color:0x151515, label:'Corner post'        },
-    { pos:[ 3.5,0.8, -3.5], scale:[1.0, 1.2, 1.0], color:0x151515, label:'Corner post'        },
-    { pos:[-3.5,0.8,  3.5], scale:[1.0, 1.2, 1.0], color:0x151515, label:'Corner post'        },
-    { pos:[ 3.5,0.8,  3.5], scale:[1.0, 1.2, 1.0], color:0x151515, label:'Corner post'        },
-    // ── Layer 2 — Lower frame panels ─────────────────────
-    { pos:[ 0,  1.6, -3.9], scale:[6.6, 0.9, 0.25], color:0x383838, label:'Side panel — back'  },
-    { pos:[ 0,  1.6,  3.9], scale:[6.6, 0.9, 0.25], color:0x383838, label:'Side panel — front' },
-    { pos:[-3.9,1.6,  0  ], scale:[0.25,0.9, 6.6], color:0x383838, label:'Side panel — left'  },
-    { pos:[ 3.9,1.6,  0  ], scale:[0.25,0.9, 6.6], color:0x383838, label:'Side panel — right' },
-    // ── Layer 3 — Quantum core (IBM blue gradient) ────────
-    { pos:[ 0,  1.1,  0  ], scale:[3.8, 0.28, 3.8], color:0x0f62fe, label:'Core ring 1'       },
-    { pos:[ 0,  1.6,  0  ], scale:[3.3, 0.28, 3.3], color:0x0043ce, label:'Core ring 2'       },
-    { pos:[ 0,  2.1,  0  ], scale:[2.8, 0.28, 2.8], color:0x002d9c, label:'Core ring 3'       },
-    { pos:[ 0,  2.6,  0  ], scale:[2.3, 0.28, 2.3], color:0x001d6c, label:'Core ring 4'       },
-    { pos:[ 0,  3.1,  0  ], scale:[1.8, 0.28, 1.8], color:0x001141, label:'Core cap'          },
-    // ── Layer 4 — Mid pillars ─────────────────────────────
-    { pos:[-3.5,3.2, -3.5], scale:[1.0, 2.6, 1.0], color:0x151515, label:'Mid pillar'         },
-    { pos:[ 3.5,3.2, -3.5], scale:[1.0, 2.6, 1.0], color:0x151515, label:'Mid pillar'         },
-    { pos:[-3.5,3.2,  3.5], scale:[1.0, 2.6, 1.0], color:0x151515, label:'Mid pillar'         },
-    { pos:[ 3.5,3.2,  3.5], scale:[1.0, 2.6, 1.0], color:0x151515, label:'Mid pillar'         },
-    // ── Layer 5 — Upper frame panels ─────────────────────
-    { pos:[ 0,  4.6, -3.9], scale:[6.6, 0.9, 0.25], color:0x383838, label:'Upper panel — back' },
-    { pos:[ 0,  4.6,  3.9], scale:[6.6, 0.9, 0.25], color:0x383838, label:'Upper panel — front'},
-    { pos:[-3.9,4.6,  0  ], scale:[0.25,0.9, 6.6], color:0x383838, label:'Upper panel — left' },
-    { pos:[ 3.9,4.6,  0  ], scale:[0.25,0.9, 6.6], color:0x383838, label:'Upper panel — right'},
-    // ── Layer 6 — LED accent strips ──────────────────────
-    { pos:[-1.8,3.0,  3.92], scale:[0.9, 0.4, 0.06], color:0x82cfff, label:'LED accent'       },
-    { pos:[ 1.8,3.0,  3.92], scale:[0.9, 0.4, 0.06], color:0x82cfff, label:'LED accent'       },
-    { pos:[-1.8,3.0, -3.92], scale:[0.9, 0.4, 0.06], color:0x82cfff, label:'LED accent'       },
-    { pos:[ 1.8,3.0, -3.92], scale:[0.9, 0.4, 0.06], color:0x82cfff, label:'LED accent'       },
-    // ── Layer 7 — Top plate ───────────────────────────────
-    { pos:[ 0,  5.4,  0  ], scale:[8.0, 0.4, 8.0], color:0x2a2a2a, label:'Top plate'          },
-    // ── Layer 8 — Top corner caps ─────────────────────────
-    { pos:[-3.5,5.8, -3.5], scale:[1.0, 0.6, 1.0], color:0x151515, label:'Corner cap'         },
-    { pos:[ 3.5,5.8, -3.5], scale:[1.0, 0.6, 1.0], color:0x151515, label:'Corner cap'         },
-    { pos:[-3.5,5.8,  3.5], scale:[1.0, 0.6, 1.0], color:0x151515, label:'Corner cap'         },
-    { pos:[ 3.5,5.8,  3.5], scale:[1.0, 0.6, 1.0], color:0x151515, label:'Corner cap'         },
-];
+// ── LDraw colour table (colours used in this model) ──────────
+const LDRAW_MAT = {
+    0:   new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.70, metalness: 0.15 }),
+    15:  new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.40, metalness: 0.05 }),
+    47:  new THREE.MeshStandardMaterial({ color: 0xd0e8f8, roughness: 0.05, metalness: 0.00,
+                                          transparent: true, opacity: 0.28, side: THREE.DoubleSide }),
+};
+function getMat(id) { return (LDRAW_MAT[id] ?? LDRAW_MAT[0]).clone(); }
 
-// ─────────────────────────────────────────────────────────────
-// CAMERA WAYPOINTS
-// Each waypoint fires when that step becomes current.
-// Between waypoints the camera smoothly interpolates.
-// ─────────────────────────────────────────────────────────────
-const WAYPOINTS = [
-    { step:  0, pos: new THREE.Vector3(11,  7, 16), target: new THREE.Vector3(0, 0.5, 0) },
-    { step:  4, pos: new THREE.Vector3( 9,  3, 14), target: new THREE.Vector3(0, 1.2, 0) },
-    { step:  8, pos: new THREE.Vector3(-12, 4, 10), target: new THREE.Vector3(0, 2.0, 0) },
-    { step: 13, pos: new THREE.Vector3(  0,13, 11), target: new THREE.Vector3(0, 2.8, 0) },
-    { step: 17, pos: new THREE.Vector3( 13, 6,  9), target: new THREE.Vector3(0, 3.8, 0) },
-    { step: 21, pos: new THREE.Vector3(-11, 8, 11), target: new THREE.Vector3(0, 4.2, 0) },
-    { step: 26, pos: new THREE.Vector3(  0,16, 22), target: new THREE.Vector3(0, 3.0, 0) },
-    { step: 30, pos: new THREE.Vector3(  8,12, 18), target: new THREE.Vector3(0, 2.8, 0) },
-];
+// ── Part geometry factory (LDraw units → Three.js via scale S) ─
+const PART_GEO = {
+    '3032.dat':  () => new THREE.BoxGeometry(80*S, 8*S, 120*S),
+    '3941.dat':  () => new THREE.CylinderGeometry(20*S, 20*S, 24*S, 24),
+    '2654.dat':  () => new THREE.CylinderGeometry(18*S, 10*S, 8*S,  24),
+    '3001.dat':  () => new THREE.BoxGeometry(80*S, 24*S, 40*S),
+    '87079.dat': () => new THREE.BoxGeometry(80*S, 8*S,  20*S),
+    '3003.dat':  () => new THREE.BoxGeometry(40*S, 24*S, 40*S),
+    '59349.dat': () => new THREE.BoxGeometry(20*S, 48*S, 40*S),
+    '6636.dat':  () => new THREE.BoxGeometry(120*S, 8*S, 20*S),
+};
+function makeGeo(id) { return (PART_GEO[id] ?? (() => new THREE.BoxGeometry(20*S, 24*S, 20*S)))(); }
 
-// ─────────────────────────────────────────────────────────────
-// SCENE
-// ─────────────────────────────────────────────────────────────
+// ── LDR parser ────────────────────────────────────────────────
+// Returns [{name, rotstep:{x,y}, bricks:[{colorId, x,y,z, quat, part, label}]}]
+// Coords already converted to Three.js (Y-up, scaled, centred).
+function parseLDR(text) {
+    const groups = [];
+    let cur = { name: 'Central column', bricks: [], rotstep: { x: 12, y: -22 } };
+    const rawBricks = [];
+
+    for (const raw of text.split('\n')) {
+        const p = raw.trim().split(/\s+/);
+        if (!p[0]) continue;
+
+        if (p[0] === '0' && p[1] === 'STUDIOSTEPDESC') {
+            groups.push(cur);
+            cur = { name: p.slice(2).join(' '), bricks: [], rotstep: cur.rotstep };
+
+        } else if (p[0] === '0' && p[1] === 'ROTSTEP') {
+            cur = { ...cur, rotstep: { x: parseFloat(p[2]), y: parseFloat(p[3]) } };
+
+        } else if (p[0] === '1' && p.length >= 15) {
+            const colorId = parseInt(p[1]);
+            const lx = parseFloat(p[2]), ly = parseFloat(p[3]), lz = parseFloat(p[4]);
+            const a  = parseFloat(p[5]),  b  = parseFloat(p[6]),  c  = parseFloat(p[7]);
+            const d  = parseFloat(p[8]),  e  = parseFloat(p[9]),  f  = parseFloat(p[10]);
+            const g  = parseFloat(p[11]), h  = parseFloat(p[12]), i  = parseFloat(p[13]);
+            const partId = p[14];
+
+            // Three.js Y-up: negate Y; rotation R_three = F·R_ldr·F, F=diag(1,-1,1)
+            // → [a,-b,c; -d,e,-f; g,-h,i]
+            const rotM4 = new THREE.Matrix4().set(
+                 a, -b,  c,  0,
+                -d,  e, -f,  0,
+                 g, -h,  i,  0,
+                 0,  0,  0,  1
+            );
+            const quat = new THREE.Quaternion().setFromRotationMatrix(rotM4);
+
+            const brick = {
+                colorId, partId,
+                x: lx * S, y: -ly * S, z: lz * S,
+                quat,
+                label: cur.name,
+            };
+            cur.bricks.push(brick);
+            rawBricks.push(brick);
+        }
+    }
+    groups.push(cur);
+
+    // Centre the model: X and Z to mean, Y so minimum sits at 0
+    if (rawBricks.length) {
+        const xs = rawBricks.map(b => b.x), zs = rawBricks.map(b => b.z);
+        const cx   = (Math.min(...xs) + Math.max(...xs)) / 2;
+        const cz   = (Math.min(...zs) + Math.max(...zs)) / 2;
+        const minY = Math.min(...rawBricks.map(b => b.y));
+        rawBricks.forEach(b => { b.x -= cx; b.y -= minY; b.z -= cz; });
+    }
+
+    return { groups, total: rawBricks.length };
+}
+
+// ── ROTSTEP → Three.js camera position ───────────────────────
+function rotstepCam(rs, modelMidY, dist) {
+    const el  = THREE.MathUtils.degToRad(rs.x);
+    const raw = ((rs.y % 360) + 540) % 360 - 180;
+    const az  = THREE.MathUtils.degToRad(raw);
+    const tgt = new THREE.Vector3(0, modelMidY, 0);
+    return {
+        pos: new THREE.Vector3(
+            tgt.x + dist * Math.cos(el) * Math.sin(az),
+            tgt.y + dist * Math.sin(el),
+            tgt.z + dist * Math.cos(el) * Math.cos(az)
+        ),
+        target: tgt,
+    };
+}
+
+// ── Scene ─────────────────────────────────────────────────────
 const canvas   = document.getElementById('build-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type    = THREE.PCFSoftShadowMap;
-renderer.toneMapping       = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.15;
+renderer.shadowMap.enabled   = true;
+renderer.shadowMap.type      = THREE.PCFSoftShadowMap;
+renderer.toneMapping         = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
 
-const scene = new THREE.Scene();
+const scene  = new THREE.Scene();
 scene.background = new THREE.Color(0x080808);
-scene.fog = new THREE.FogExp2(0x080808, 0.016);
+scene.fog        = new THREE.FogExp2(0x080808, 0.014);
 
 const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 200);
-camera.position.copy(WAYPOINTS[0].pos);
-camera.lookAt(WAYPOINTS[0].target);
 
 // Lights
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
-scene.add(ambientLight);
+scene.add(new THREE.AmbientLight(0xffffff, 0.28));
 
-const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
-keyLight.position.set(10, 22, 12);
-keyLight.castShadow = true;
-keyLight.shadow.mapSize.set(2048, 2048);
-keyLight.shadow.camera.near   = 0.1;
-keyLight.shadow.camera.far    = 80;
-keyLight.shadow.camera.left   = -16;
-keyLight.shadow.camera.right  = 16;
-keyLight.shadow.camera.top    = 16;
-keyLight.shadow.camera.bottom = -4;
-scene.add(keyLight);
+const key = new THREE.DirectionalLight(0xffffff, 2.1);
+key.position.set(10, 22, 12);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+Object.assign(key.shadow.camera, { near: 0.1, far: 80, left: -14, right: 14, top: 14, bottom: -4 });
+scene.add(key);
 
-const fillLight = new THREE.DirectionalLight(0x4488ff, 0.5);
-fillLight.position.set(-12, 4, -8);
-scene.add(fillLight);
+const fill = new THREE.DirectionalLight(0x4488ff, 0.45);
+fill.position.set(-12, 4, -8);
+scene.add(fill);
 
-const rimLight = new THREE.DirectionalLight(0xffffff, 0.35);
-rimLight.position.set(0, -4, -18);
-scene.add(rimLight);
+const rim = new THREE.DirectionalLight(0xffffff, 0.3);
+rim.position.set(0, -4, -18);
+scene.add(rim);
 
-// Blue glow from below (simulates quantum core glow)
-const coreGlow = new THREE.PointLight(0x0f62fe, 1.8, 12);
-coreGlow.position.set(0, 2.5, 0);
+const coreGlow = new THREE.PointLight(0x0f62fe, 1.4, 14);
+coreGlow.position.set(0, 3, 0);
 scene.add(coreGlow);
 
-// Ground — shadow catcher only
-const groundMesh = new THREE.Mesh(
+const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(60, 60),
-    new THREE.ShadowMaterial({ opacity: 0.5 })
+    new THREE.ShadowMaterial({ opacity: 0.45 })
 );
-groundMesh.rotation.x = -Math.PI / 2;
-groundMesh.position.y = -0.22;
-groundMesh.receiveShadow = true;
-scene.add(groundMesh);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -0.05;
+ground.receiveShadow = true;
+scene.add(ground);
 
-// Subtle grid
 const grid = new THREE.GridHelper(40, 40, 0x181818, 0x111111);
-grid.position.y = -0.2;
+grid.position.y = -0.04;
 scene.add(grid);
 
-// ─────────────────────────────────────────────────────────────
-// BRICK MESHES  (all hidden at start)
-// ─────────────────────────────────────────────────────────────
-const brickMeshes = BUILD_STEPS.map(step => {
-    const geo = new THREE.BoxGeometry(1, 1, 1);
-    const mat = new THREE.MeshStandardMaterial({
-        color:     step.color,
-        roughness: 0.65,
-        metalness: 0.08,
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.scale.set(...step.scale);
-    mesh.position.set(...step.pos);
-    mesh.castShadow    = true;
-    mesh.receiveShadow = true;
-    mesh.visible       = false;
-    mesh.userData.targetY = step.pos[1];
-    mesh.userData.label   = step.label;
-    scene.add(mesh);
-    return mesh;
-});
-
-// ─────────────────────────────────────────────────────────────
-// RESIZE
-// ─────────────────────────────────────────────────────────────
+// ── Resize ────────────────────────────────────────────────────
 function resize() {
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
@@ -477,112 +363,75 @@ function resize() {
 new ResizeObserver(resize).observe(canvas);
 resize();
 
-// ─────────────────────────────────────────────────────────────
-// SCROLL SETUP
-// ─────────────────────────────────────────────────────────────
-const TOTAL = BUILD_STEPS.length;
-document.getElementById('total-steps').textContent = TOTAL;
-document.getElementById('scroll-spacer').style.height =
-    (TOTAL * SCROLL_PER_STEP + window.innerHeight * 0.8) + 'px';
+// ── Animation state ───────────────────────────────────────────
+let drops        = [];   // active drop animations
+let shownCount   = 0;
+let allMeshes    = [];   // flat list of Three.js meshes in build order
+let groupRanges  = [];   // [{start, end, rotstep, name}] for camera per group
+let TOTAL        = 0;
+let modelMidY    = 4;
 
-// ─────────────────────────────────────────────────────────────
-// ANIMATION STATE
-// ─────────────────────────────────────────────────────────────
-const currentPos    = new THREE.Vector3().copy(WAYPOINTS[0].pos);
-const currentTarget = new THREE.Vector3().copy(WAYPOINTS[0].target);
-const wantedPos     = new THREE.Vector3().copy(WAYPOINTS[0].pos);
-const wantedTarget  = new THREE.Vector3().copy(WAYPOINTS[0].target);
+const curPos    = new THREE.Vector3();
+const curTarget = new THREE.Vector3();
+const wantPos   = new THREE.Vector3();
+const wantTarget= new THREE.Vector3();
 
-// Active drop animations: { mesh, startY, endY, elapsed }
-let drops = [];
-let shownCount = 0;
-
-// Easing — spring overshoot feel
 function easeOutBack(t) {
     const c1 = 1.70158, c3 = c1 + 1;
     return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
 }
 
-function getCameraForStep(step) {
-    const last = WAYPOINTS[WAYPOINTS.length - 1];
-    if (step >= last.step) return { pos: last.pos.clone(), target: last.target.clone() };
-
-    let lo = WAYPOINTS[0], hi = WAYPOINTS[1];
-    for (let i = 0; i < WAYPOINTS.length - 1; i++) {
-        if (step >= WAYPOINTS[i].step && step < WAYPOINTS[i + 1].step) {
-            lo = WAYPOINTS[i]; hi = WAYPOINTS[i + 1]; break;
-        }
-    }
-    const t = (step - lo.step) / (hi.step - lo.step);
-    const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t; // smoothstep
-    return {
-        pos:    lo.pos.clone().lerp(hi.pos, ease),
-        target: lo.target.clone().lerp(hi.target, ease),
-    };
+function setCameraForStep(step) {
+    const group = groupRanges.find(g => step >= g.start && step < g.end) ?? groupRanges[groupRanges.length - 1];
+    const wp = rotstepCam(group.rotstep, modelMidY, CAM_DIST);
+    wantPos.copy(wp.pos);
+    wantTarget.copy(wp.target);
 }
 
 function revealBrick(i) {
-    const mesh = brickMeshes[i];
-    mesh.visible    = true;
-    mesh.position.y = mesh.userData.targetY + DROP_HEIGHT;
-    drops.push({ mesh, startY: mesh.position.y, endY: mesh.userData.targetY, elapsed: 0 });
+    const m = allMeshes[i];
+    m.visible = true;
+    m.position.y = m.userData.finalY + DROP_H;
+    drops.push({ mesh: m, startY: m.position.y, endY: m.userData.finalY, elapsed: 0 });
 }
 
 function hideBrick(i) {
-    brickMeshes[i].visible = false;
-    drops = drops.filter(d => d.mesh !== brickMeshes[i]);
-    brickMeshes[i].position.y = brickMeshes[i].userData.targetY + DROP_HEIGHT;
+    allMeshes[i].visible = false;
+    drops = drops.filter(d => d.mesh !== allMeshes[i]);
+    allMeshes[i].position.y = allMeshes[i].userData.finalY + DROP_H;
 }
 
-// ─────────────────────────────────────────────────────────────
-// SCROLL HANDLER
-// ─────────────────────────────────────────────────────────────
-window.addEventListener('scroll', () => {
-    const scrollY  = window.scrollY;
-    const fraction = scrollY / (TOTAL * SCROLL_PER_STEP);
-    const step     = Math.min(TOTAL, Math.max(0, Math.round(fraction * TOTAL)));
+// ── Scroll handler ────────────────────────────────────────────
+function onScroll() {
+    if (!TOTAL) return;
+    const frac  = window.scrollY / (TOTAL * SCROLL_PER);
+    const step  = Math.min(TOTAL, Math.max(0, Math.round(frac * TOTAL)));
 
-    // Reveal / hide bricks
-    if (step > shownCount) {
-        for (let i = shownCount; i < step; i++) revealBrick(i);
-    } else if (step < shownCount) {
-        for (let i = step; i < shownCount; i++) hideBrick(i);
-    }
+    if (step > shownCount) for (let i = shownCount; i < step; i++) revealBrick(i);
+    else if (step < shownCount) for (let i = step; i < shownCount; i++) hideBrick(i);
     shownCount = step;
 
-    // HUD
-    document.getElementById('cur-step').textContent = step;
+    document.getElementById('cur-step').textContent   = step;
     const pct = (step / TOTAL * 100).toFixed(1);
     document.getElementById('progress-fill').style.height = pct + '%';
     document.getElementById('progress-dot').style.top     = pct + '%';
 
-    const label = step > 0 && step <= TOTAL
-        ? BUILD_STEPS[step - 1].label
-        : '';
+    const label = step > 0 ? (allMeshes[step - 1]?.userData.label ?? '') : '';
     document.getElementById('step-label').textContent = label;
-
-    // Scroll cue
-    document.getElementById('scroll-cue').style.opacity = scrollY > 80 ? '0' : '1';
-
-    // Camera target
-    const wp = getCameraForStep(step);
-    wantedPos.copy(wp.pos);
-    wantedTarget.copy(wp.target);
-
-    // Completion screen
+    document.getElementById('scroll-cue').style.opacity = window.scrollY > 80 ? '0' : '1';
     document.getElementById('completion').classList.toggle('visible', step >= TOTAL);
-}, { passive: true });
 
-// ─────────────────────────────────────────────────────────────
-// RENDER LOOP
-// ─────────────────────────────────────────────────────────────
+    setCameraForStep(step);
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// ── Render loop ───────────────────────────────────────────────
 let lastTs = 0;
 function tick(ts) {
     requestAnimationFrame(tick);
     const dt = Math.min(ts - lastTs, 50);
     lastTs = ts;
 
-    // Tick drop animations
     drops = drops.filter(d => {
         d.elapsed += dt;
         const t = Math.min(d.elapsed / DROP_MS, 1);
@@ -590,18 +439,77 @@ function tick(ts) {
         return t < 1;
     });
 
-    // Smooth camera
-    currentPos.lerp(wantedPos, CAM_LERP);
-    currentTarget.lerp(wantedTarget, CAM_LERP);
-    camera.position.copy(currentPos);
-    camera.lookAt(currentTarget);
+    curPos.lerp(wantPos, CAM_LERP);
+    curTarget.lerp(wantTarget, CAM_LERP);
+    camera.position.copy(curPos);
+    camera.lookAt(curTarget);
 
-    // Gentle core glow pulse
-    coreGlow.intensity = 1.6 + Math.sin(ts * 0.002) * 0.3;
-
+    coreGlow.intensity = 1.2 + Math.sin(ts * 0.0018) * 0.3;
     renderer.render(scene, camera);
 }
 requestAnimationFrame(tick);
+
+// ── Load LDR ─────────────────────────────────────────────────
+(async () => {
+    const loadBar = document.getElementById('load-bar-fill');
+    loadBar.style.width = '20%';
+
+    let text;
+    try {
+        const resp = await fetch(LDR_URL);
+        if (!resp.ok) throw new Error(resp.status);
+        loadBar.style.width = '60%';
+        text = await resp.text();
+    } catch (e) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('load-error').style.display = 'flex';
+        return;
+    }
+
+    loadBar.style.width = '80%';
+    const { groups, total } = parseLDR(text);
+    TOTAL = total;
+
+    document.getElementById('total-steps').textContent = TOTAL;
+    document.getElementById('scroll-spacer').style.height =
+        (TOTAL * SCROLL_PER + window.innerHeight * 0.6) + 'px';
+
+    // Build meshes
+    let globalIdx = 0;
+    groups.forEach(group => {
+        const start = globalIdx;
+        group.bricks.forEach(brick => {
+            const mesh = new THREE.Mesh(makeGeo(brick.partId), getMat(brick.colorId));
+            mesh.quaternion.copy(brick.quat);
+            mesh.position.set(brick.x, brick.y, brick.z);
+            mesh.castShadow    = true;
+            mesh.receiveShadow = true;
+            mesh.visible       = false;
+            mesh.userData.finalY = brick.y;
+            mesh.userData.label  = brick.label;
+            scene.add(mesh);
+            allMeshes.push(mesh);
+            globalIdx++;
+        });
+        groupRanges.push({ start, end: globalIdx, rotstep: group.rotstep, name: group.name });
+    });
+
+    // Compute model height mid-point for camera targeting
+    const ys = allMeshes.map(m => m.userData.finalY);
+    modelMidY = (Math.min(...ys) + Math.max(...ys)) / 2;
+
+    // Set initial camera
+    const wp0 = rotstepCam(groups[0]?.rotstep ?? { x: 12, y: -22 }, modelMidY, CAM_DIST);
+    curPos.copy(wp0.pos);
+    curTarget.copy(wp0.target);
+    wantPos.copy(wp0.pos);
+    wantTarget.copy(wp0.target);
+    camera.position.copy(curPos);
+    camera.lookAt(curTarget);
+
+    loadBar.style.width = '100%';
+    setTimeout(() => document.getElementById('loading').classList.add('hidden'), 400);
+})();
 </script>
 
 </body>
