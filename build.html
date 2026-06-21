@@ -22,7 +22,6 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
-
         .back-link {
             position: fixed; top: 1.25rem; left: 1.5rem; z-index: 200;
             font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
@@ -31,142 +30,102 @@
         .back-link:hover { color: #111; }
 
         #build-wrapper { position: relative; }
-
         #build-stage {
             position: sticky; top: 0;
             width: 100vw; height: 100dvh; overflow: hidden;
         }
-        #build-canvas {
-            display: block; width: 100%; height: 100%;
-            cursor: grab;
-        }
+        #build-canvas { display: block; width: 100%; height: 100%; cursor: grab; }
         #build-canvas.grabbing { cursor: grabbing; }
 
-        /* ── HUD ───────────────────────────────────────── */
+        /* ── HUD ── */
         .hud {
             position: absolute; inset: 0; pointer-events: none;
             padding: 1.25rem 1.5rem;
             display: flex; flex-direction: column; justify-content: space-between;
         }
         .hud-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .hud-brand {
-            font-size: 0.65rem; letter-spacing: 0.18em;
-            text-transform: uppercase; color: #bbb; padding-top: 0.1rem;
-        }
+        .hud-brand { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: #bbb; padding-top: 0.1rem; }
         .hud-counter { text-align: right; }
-        .hud-step-num {
-            font-size: 2rem; font-weight: 700; color: #111;
-            line-height: 1; letter-spacing: -0.02em;
-        }
-        .hud-step-of {
-            font-size: 0.65rem; letter-spacing: 0.08em;
-            text-transform: uppercase; color: #bbb;
-        }
+        .hud-step-num { font-size: 2rem; font-weight: 700; color: #111; line-height: 1; letter-spacing: -0.02em; }
+        .hud-step-of { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; }
 
         .step-card {
             align-self: center;
             background: #fff; border: 1px solid #e8e8e8; border-radius: 6px;
-            padding: 0.7rem 1.1rem;
-            display: flex; flex-direction: column; gap: 0.2rem;
+            padding: 0.7rem 1.1rem; display: flex; flex-direction: column; gap: 0.2rem;
             min-width: 180px; max-width: 260px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
         .step-card-name { font-size: 0.82rem; font-weight: 600; color: #111; }
-        .step-card-count {
-            font-size: 0.65rem; letter-spacing: 0.1em;
-            text-transform: uppercase; color: #999;
-        }
+        .step-card-count { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #999; }
 
         .scroll-cue {
             align-self: center;
-            font-size: 0.62rem; letter-spacing: 0.18em;
-            text-transform: uppercase; color: #ccc;
-            transition: opacity 0.5s;
+            font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+            color: #ccc; transition: opacity 0.5s;
             animation: nudge 2.2s ease-in-out infinite;
         }
-        @keyframes nudge {
-            0%, 100% { transform: translateY(0); }
-            50%       { transform: translateY(5px); }
-        }
+        @keyframes nudge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
 
-        /* ── Progress rail ─────────────────────────────── */
+        /* ── Progress rail ── */
         .progress-rail {
-            position: absolute; right: 1.5rem; top: 50%;
-            transform: translateY(-50%);
-            width: 2px; height: 36vh;
-            background: #e4e4e4; pointer-events: none; border-radius: 1px;
+            position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%);
+            width: 2px; height: 36vh; background: #e4e4e4; pointer-events: none; border-radius: 1px;
         }
-        .progress-fill {
-            width: 100%; height: 0%; background: #0f62fe;
-            transition: height 0.1s linear; border-radius: 1px;
-        }
+        .progress-fill { width: 100%; height: 0%; background: #0f62fe; transition: height 0.1s linear; border-radius: 1px; }
         .progress-dot {
             position: absolute; left: 50%; transform: translateX(-50%);
             width: 6px; height: 6px; border-radius: 50%;
             background: #0f62fe; top: 0%; transition: top 0.1s linear;
-            box-shadow: 0 0 5px rgba(15,98,254,0.5);
+            box-shadow: 0 0 5px rgba(15,98,254,.5);
         }
 
-        /* ── Camera angle controls ─────────────────────── */
+        /* ── Camera controls ── */
         .cam-controls {
-            position: absolute;
-            /* Sit just above the progress rail mid-point */
-            right: 1.1rem;
-            top: calc(50% - 18vh - 6.5rem);
-            display: flex; flex-direction: column; gap: 3px;
-            pointer-events: auto;
+            position: absolute; right: 1.1rem; top: calc(50% - 18vh - 6.5rem);
+            display: flex; flex-direction: column; gap: 3px; pointer-events: auto;
         }
         .cam-btn {
             width: 34px; height: 26px;
-            background: rgba(255,255,255,0.92);
-            border: 1px solid #e2e2e2;
-            border-radius: 4px;
+            background: rgba(255,255,255,.92); border: 1px solid #e2e2e2; border-radius: 4px;
             font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase;
             color: #666; cursor: pointer; font-family: inherit;
-            transition: background 0.15s, color 0.15s, border-color 0.15s;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+            transition: background .15s, color .15s, border-color .15s;
+            box-shadow: 0 1px 4px rgba(0,0,0,.07);
             display: flex; align-items: center; justify-content: center;
         }
         .cam-btn:hover  { background: #111; color: #fff; border-color: #111; }
         .cam-btn.active { background: #0f62fe; color: #fff; border-color: #0f62fe; }
 
-        /* Desktop drag hint — hidden on touch devices */
         .drag-hint {
             position: absolute; top: 1.4rem; left: 50%; transform: translateX(-50%);
             font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
             color: #ccc; pointer-events: none;
             animation: fadeHint 3s ease forwards;
         }
-        @keyframes fadeHint { 0%,60% { opacity:1; } 100% { opacity:0; } }
+        @keyframes fadeHint { 0%,60%{opacity:1} 100%{opacity:0} }
         .drag-hint.hidden { display: none; }
 
-        /* ── Step dots ─────────────────────────────────── */
+        /* ── Step dots ── */
         .step-dots {
-            position: absolute; bottom: 1.5rem; left: 50%;
-            transform: translateX(-50%);
+            position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
             display: flex; gap: 6px; pointer-events: none;
         }
-        .step-dot {
-            width: 5px; height: 5px; border-radius: 50%;
-            background: #ddd; transition: background 0.3s, transform 0.3s;
-        }
+        .step-dot { width: 5px; height: 5px; border-radius: 50%; background: #ddd; transition: background .3s, transform .3s; }
         .step-dot.done    { background: #bbb; }
         .step-dot.current { background: #0f62fe; transform: scale(1.4); }
 
-        /* ── Loading / error ───────────────────────────── */
+        /* ── Loading ── */
         #loading {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column; gap: 1rem;
+            position: absolute; inset: 0; display: flex; align-items: center;
+            justify-content: center; flex-direction: column; gap: 0.75rem;
             background: #f0efed; transition: opacity 0.5s;
         }
         #loading.hidden { opacity: 0; pointer-events: none; }
-        #loading .load-label {
-            font-size: 0.65rem; letter-spacing: 0.2em;
-            text-transform: uppercase; color: #bbb;
-        }
-        .load-bar { width: 100px; height: 1px; background: #e4e4e4; }
-        .load-bar-fill { height: 100%; background: #0f62fe; width: 0%; transition: width 0.3s; }
+        #loading .load-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #bbb; }
+        .load-bar { width: 120px; height: 1px; background: #e4e4e4; }
+        .load-bar-fill { height: 100%; background: #0f62fe; width: 0%; transition: width 0.4s ease; }
+        #loading .load-sub { font-size: 0.6rem; color: #ccc; letter-spacing: 0.08em; }
 
         #load-error {
             position: absolute; inset: 0; display: none;
@@ -176,32 +135,22 @@
         #load-error p { font-size: 0.8rem; color: #999; }
         #load-error a { font-size: 0.72rem; color: #0f62fe; text-decoration: none; }
 
-        /* ── Completion ────────────────────────────────── */
+        /* ── Completion ── */
         #completion {
             position: absolute; inset: 0;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 1.1rem;
-            background: rgba(240,239,237,0.88); backdrop-filter: blur(6px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1rem;
+            background: rgba(240,239,237,.88); backdrop-filter: blur(6px);
             opacity: 0; pointer-events: none; transition: opacity 0.8s ease;
         }
         #completion.visible { opacity: 1; pointer-events: auto; }
-        #completion .tag {
-            font-size: 0.62rem; letter-spacing: 0.2em;
-            text-transform: uppercase; color: #0f62fe;
-        }
-        #completion h2 {
-            font-size: 1.8rem; font-weight: 700;
-            letter-spacing: -0.03em; color: #111;
-        }
-        #completion p {
-            color: #999; font-size: 0.82rem;
-            max-width: 240px; text-align: center; line-height: 1.55;
-        }
+        #completion .tag { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: #0f62fe; }
+        #completion h2 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; color: #111; }
+        #completion p { color: #999; font-size: 0.82rem; max-width: 240px; text-align: center; line-height: 1.55; }
         #completion .btn-group { display: flex; gap: 0.7rem; flex-wrap: wrap; justify-content: center; }
         #completion a {
-            display: inline-block; padding: 0.6rem 1.4rem;
-            font-size: 0.78rem; font-family: inherit;
-            letter-spacing: 0.05em; text-decoration: none; transition: 0.2s;
+            display: inline-block; padding: .6rem 1.4rem;
+            font-size: 0.78rem; font-family: inherit; letter-spacing: .05em;
+            text-decoration: none; transition: .2s;
         }
         #completion .btn-p { background: #0f62fe; color: #fff; }
         #completion .btn-p:hover { background: #0353e9; }
@@ -225,19 +174,18 @@
                     <div class="hud-step-of">of <span id="total-steps">—</span></div>
                 </div>
             </div>
-            <div class="step-card" id="step-card">
+            <div class="step-card">
                 <div class="step-card-name" id="step-name">Loading…</div>
                 <div class="step-card-count" id="step-count">&nbsp;</div>
             </div>
             <div class="scroll-cue" id="scroll-cue">↓ &nbsp; Scroll to build</div>
         </div>
 
-        <!-- Camera preset buttons -->
-        <div class="cam-controls" id="cam-controls">
-            <button class="cam-btn active" data-preset="0" title="Isometric view">Iso</button>
-            <button class="cam-btn"        data-preset="1" title="Front view">Front</button>
-            <button class="cam-btn"        data-preset="2" title="Side view">Side</button>
-            <button class="cam-btn"        data-preset="3" title="Top-down view">Top</button>
+        <div class="cam-controls">
+            <button class="cam-btn active" data-preset="0" title="Isometric">Iso</button>
+            <button class="cam-btn"        data-preset="1" title="Front">Front</button>
+            <button class="cam-btn"        data-preset="2" title="Side">Side</button>
+            <button class="cam-btn"        data-preset="3" title="Top-down">Top</button>
         </div>
 
         <div class="progress-rail">
@@ -246,16 +194,15 @@
         </div>
 
         <div class="step-dots" id="step-dots"></div>
-
-        <!-- Desktop hint -->
         <div class="drag-hint" id="drag-hint">Drag to orbit</div>
 
         <div id="loading">
             <div class="load-label">Loading model</div>
             <div class="load-bar"><div class="load-bar-fill" id="load-bar-fill"></div></div>
+            <div class="load-sub" id="load-sub">Fetching LDraw file…</div>
         </div>
         <div id="load-error">
-            <p>Could not load model file.</p>
+            <p>Could not load model.</p>
             <a href="index.html#quantego">Back to Quantego &rarr;</a>
         </div>
 
@@ -264,8 +211,7 @@
             <h2>Quantego System One</h2>
             <p>49 pieces. Authentic IBM Quantum geometry. Ready for your desk.</p>
             <div class="btn-group">
-                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop"
-                   class="btn-p" target="_blank" rel="noopener">Buy on Etsy &rarr;</a>
+                <a href="https://www.etsy.com/de-en/shop/TheQuantumWorkshop" class="btn-p" target="_blank" rel="noopener">Buy on Etsy &rarr;</a>
                 <a href="index.html#quantego" class="btn-s">Learn More</a>
             </div>
         </div>
@@ -284,100 +230,57 @@
 
 <script type="module">
 import * as THREE from 'three';
+import { LDrawLoader }  from 'three/addons/loaders/LDrawLoader.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+// ── URLs ──────────────────────────────────────────────────────
+const LDR_URL    = 'https://raw.githubusercontent.com/JanLahmann/Quantego/main/Quantego-One/Quantego-One-v05.ldr';
+// Official LDraw parts library mirrored in the Three.js examples
+const PARTS_BASE = 'https://raw.githubusercontent.com/mrdoob/three.js/r169/examples/models/ldraw/officialLibrary/';
 
 // ── CONFIG ────────────────────────────────────────────────────
-const LDR_URL    = 'https://raw.githubusercontent.com/JanLahmann/Quantego/main/Quantego-One/Quantego-One-v05.ldr';
-const S          = 0.05;
 const SCROLL_PER = 550;
-const DROP_H     = 7;
-const DROP_MS    = 480;
-const STAGGER_MS = 90;
-const GLOW_MS    = 2200;
+const DROP_H     = 6;
+const DROP_MS    = 520;
+const STAGGER_MS = 70;
+const GLOW_MS    = 2400;
 const CAM_DIST   = 20;
 const CAM_LERP   = 0.05;
 
-// ── Camera preset angles [theta (azimuth rad), phi (elevation rad)] ──
-// theta: 0 = from +Z front, negative = from right, positive = from left
-// phi:   0 = horizontal, 1.57 = top-down
 const PRESETS = [
-    { label: 'Iso',   theta:  Math.PI - 0.40, phi: 0.22 },   // front-right isometric  ≈ 2.74
-    { label: 'Front', theta:  Math.PI,          phi: 0.16 },   // true front             ≈ 3.14
-    { label: 'Side',  theta:  Math.PI / 2,      phi: 0.20 },   // right side             ≈ 1.57
-    { label: 'Top',   theta:  Math.PI - 0.40,   phi: 1.12 },   // top-down               ≈ 2.74
+    { theta: Math.PI - 0.40, phi: 0.22 },   // Iso (front-right)
+    { theta: Math.PI,         phi: 0.16 },   // Front
+    { theta: Math.PI / 2,     phi: 0.20 },   // Side
+    { theta: Math.PI - 0.40,  phi: 1.12 },   // Top
 ];
 
-// ── LDraw colours ─────────────────────────────────────────────
-const BASE_MATS = {
-    0:  new THREE.MeshStandardMaterial({ color: 0x1f1f1f, roughness: 0.65, metalness: 0.12 }),
-    15: new THREE.MeshStandardMaterial({ color: 0xf0f0f0, roughness: 0.45, metalness: 0.04 }),
-    47: new THREE.MeshStandardMaterial({ color: 0xc8e0f4, roughness: 0.05, metalness: 0.0,
-                                         transparent: true, opacity: 0.32, side: THREE.DoubleSide }),
-};
-function getMat(id) { return (BASE_MATS[id] ?? BASE_MATS[0]).clone(); }
-
-// ── Part geometries ───────────────────────────────────────────
-const PART_GEO = {
-    '3032.dat':  () => new THREE.BoxGeometry(80*S, 8*S, 120*S),
-    '3941.dat':  () => new THREE.CylinderGeometry(20*S, 20*S, 24*S, 24),
-    '2654.dat':  () => new THREE.CylinderGeometry(18*S, 10*S,  8*S, 24),
-    '3001.dat':  () => new THREE.BoxGeometry(80*S, 24*S, 40*S),
-    '87079.dat': () => new THREE.BoxGeometry(80*S,  8*S, 20*S),
-    '3003.dat':  () => new THREE.BoxGeometry(40*S, 24*S, 40*S),
-    '59349.dat': () => new THREE.BoxGeometry(20*S, 48*S, 40*S),
-    '6636.dat':  () => new THREE.BoxGeometry(120*S, 8*S, 20*S),
-};
-function makeGeo(id) { return (PART_GEO[id] ?? (() => new THREE.BoxGeometry(20*S,24*S,20*S)))(); }
-
-// ── LDR parser ────────────────────────────────────────────────
-function parseLDR(text) {
-    const groups = [];
-    let cur = { name: 'Central column', bricks: [], rotstep: { x: 14, y: -22 } };
-
-    for (const raw of text.split('\n')) {
-        const p = raw.trim().split(/\s+/);
+// ── Parse step metadata only (names + camera angles) ─────────
+function parseStepMeta(text) {
+    const steps = [];
+    let cur = { name: 'Central column', rotstep: { x: 14, y: -22 }, count: 0 };
+    for (const line of text.split('\n')) {
+        const p = line.trim().split(/\s+/);
         if (!p[0]) continue;
-        if (p[0] === '0' && p[1] === 'STUDIOSTEPDESC') {
-            groups.push(cur);
-            cur = { name: p.slice(2).join(' '), bricks: [], rotstep: cur.rotstep };
+        if (p[0] === '1') { cur.count++; }
+        else if (p[0] === '0' && p[1] === 'STUDIOSTEPDESC') {
+            steps.push(cur);
+            cur = { name: p.slice(2).join(' '), rotstep: cur.rotstep, count: 0 };
         } else if (p[0] === '0' && p[1] === 'ROTSTEP') {
             cur = { ...cur, rotstep: { x: parseFloat(p[2]), y: parseFloat(p[3]) } };
-        } else if (p[0] === '1' && p.length >= 15) {
-            const colorId = parseInt(p[1]);
-            const lx=parseFloat(p[2]), ly=parseFloat(p[3]), lz=parseFloat(p[4]);
-            const a=parseFloat(p[5]), b=parseFloat(p[6]),  c=parseFloat(p[7]);
-            const d=parseFloat(p[8]), e=parseFloat(p[9]),  f=parseFloat(p[10]);
-            const g=parseFloat(p[11]),h=parseFloat(p[12]), i=parseFloat(p[13]);
-            const rm = new THREE.Matrix4().set(a,-b,c,0, -d,e,-f,0, g,-h,i,0, 0,0,0,1);
-            cur.bricks.push({
-                colorId, partId: p[14],
-                x: lx*S, y: -ly*S, z: lz*S,
-                quat: new THREE.Quaternion().setFromRotationMatrix(rm),
-            });
         }
     }
-    groups.push(cur);
-
-    // Centre X/Z to midpoint, Y so min = 0
-    const all = groups.flatMap(g => g.bricks);
-    if (all.length) {
-        const xs=all.map(b=>b.x), zs=all.map(b=>b.z), ys=all.map(b=>b.y);
-        const cx=(Math.min(...xs)+Math.max(...xs))/2;
-        const cz=(Math.min(...zs)+Math.max(...zs))/2;
-        const my=Math.min(...ys);
-        all.forEach(b => { b.x-=cx; b.y-=my; b.z-=cz; });
-    }
-    return groups;
+    steps.push(cur);
+    return steps;
 }
 
-// ── ROTSTEP → spherical angles ────────────────────────────────
+// ── ROTSTEP + preset offset → spherical angles ───────────────
 function rotstepToSph(rs) {
     const phi   = THREE.MathUtils.degToRad(Math.max(rs.x, 8));
     const raw   = ((rs.y % 360) + 540) % 360 - 180;
     const theta = THREE.MathUtils.degToRad(raw);
-    return { theta, phi };
+    return { theta: theta + Math.PI, phi }; // +π to face front
 }
 
-// ── Spherical → cartesian camera position ─────────────────────
 function sphToPos(theta, phi, dist, tgt) {
     return new THREE.Vector3(
         tgt.x + dist * Math.cos(phi) * Math.sin(theta),
@@ -405,24 +308,22 @@ scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 const key = new THREE.DirectionalLight(0xfff8f0, 1.6);
 key.position.set(8, 20, 10); key.castShadow = true;
 key.shadow.mapSize.set(2048, 2048);
-Object.assign(key.shadow.camera, { near:0.1, far:80, left:-14, right:14, top:14, bottom:-4 });
+Object.assign(key.shadow.camera, { near:.1, far:80, left:-14, right:14, top:14, bottom:-4 });
 scene.add(key);
 const fill = new THREE.DirectionalLight(0xd0e4ff, 0.5);
 fill.position.set(-10, 6, -6); scene.add(fill);
 const bounce = new THREE.DirectionalLight(0xffffff, 0.35);
 bounce.position.set(0, -6, 10); scene.add(bounce);
 
-const groundMesh = new THREE.Mesh(
+const ground = new THREE.Mesh(
     new THREE.PlaneGeometry(60, 60),
     new THREE.ShadowMaterial({ opacity: 0.12 })
 );
-groundMesh.rotation.x = -Math.PI/2; groundMesh.position.y = -0.05;
-groundMesh.receiveShadow = true; scene.add(groundMesh);
-
+ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02;
+ground.receiveShadow = true; scene.add(ground);
 const grid = new THREE.GridHelper(40, 40, 0xdddddd, 0xe8e8e8);
-grid.position.y = -0.04; scene.add(grid);
+grid.position.y = -0.01; scene.add(grid);
 
-// ── Resize ────────────────────────────────────────────────────
 function resize() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     renderer.setSize(w, h, false);
@@ -432,127 +333,115 @@ function resize() {
 new ResizeObserver(resize).observe(canvas);
 resize();
 
-// ── Spherical camera state ────────────────────────────────────
-let curTheta   = PRESETS[0].theta;
-let curPhi     = PRESETS[0].phi;
-let wantTheta  = PRESETS[0].theta;
-let wantPhi    = PRESETS[0].phi;
-const wantTarget = new THREE.Vector3(0, 4, 0);
-const curTarget  = new THREE.Vector3(0, 4, 0);
+// ── Spherical camera ──────────────────────────────────────────
+let curTheta  = PRESETS[0].theta, curPhi    = PRESETS[0].phi;
+let wantTheta = PRESETS[0].theta, wantPhi   = PRESETS[0].phi;
+let scrollTheta = wantTheta, scrollPhi = wantPhi;
+let presetDTheta = 0, presetDPhi = 0;
+const wantTarget = new THREE.Vector3(0, 3, 0);
+const curTarget  = new THREE.Vector3(0, 3, 0);
 
-// Track which preset is active (-1 = custom/drag)
-let activePreset = 0;
-
-function setPreset(idx) {
-    activePreset = idx;
-    wantTheta = PRESETS[idx].theta;
-    wantPhi   = PRESETS[idx].phi;
-    document.querySelectorAll('.cam-btn').forEach((b, i) =>
-        b.classList.toggle('active', i === idx));
-}
-
-// When scroll changes group, update base theta/phi from ROTSTEP
-// but keep the user's preset offset on top
-let scrollTheta = PRESETS[0].theta;
-let scrollPhi   = PRESETS[0].phi;
-let presetOffset = { dTheta: 0, dPhi: 0 };
-
-function applyScrollAngle(sph) {
-    scrollTheta = sph.theta;
-    scrollPhi   = sph.phi;
-    // Reapply preset offset on top of new scroll angle
-    wantTheta = scrollTheta + presetOffset.dTheta;
-    wantPhi   = Math.max(0.05, Math.min(1.45, scrollPhi + presetOffset.dPhi));
-}
-
-// Preset buttons — store offset from scroll angle
 document.querySelectorAll('.cam-btn').forEach((btn, i) => {
     btn.addEventListener('click', () => {
-        activePreset = i;
-        wantTheta = PRESETS[i].theta;
-        wantPhi   = PRESETS[i].phi;
-        // Store offset so future scroll transitions preserve this angle preference
-        presetOffset.dTheta = wantTheta - scrollTheta;
-        presetOffset.dPhi   = wantPhi   - scrollPhi;
+        wantTheta = PRESETS[i].theta; wantPhi = PRESETS[i].phi;
+        presetDTheta = wantTheta - scrollTheta;
+        presetDPhi   = wantPhi   - scrollPhi;
         document.querySelectorAll('.cam-btn').forEach((b, j) =>
             b.classList.toggle('active', j === i));
     });
 });
 
-// ── Mouse drag to orbit (desktop only) ───────────────────────
+// Mouse drag (desktop only)
 let isDragging = false, dragX = 0, dragY = 0;
-
 canvas.addEventListener('pointerdown', e => {
     if (e.pointerType !== 'mouse') return;
-    isDragging = true;
-    dragX = e.clientX; dragY = e.clientY;
+    isDragging = true; dragX = e.clientX; dragY = e.clientY;
     canvas.setPointerCapture(e.pointerId);
     canvas.classList.add('grabbing');
-    // Clear active preset when user free-drags
     document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
-    activePreset = -1;
 });
-
 canvas.addEventListener('pointermove', e => {
     if (!isDragging || e.pointerType !== 'mouse') return;
-    const dx = e.clientX - dragX;
-    const dy = e.clientY - dragY;
-    wantTheta -= dx * 0.007;
-    wantPhi    = Math.max(0.05, Math.min(1.45, wantPhi - dy * 0.005));
-    // Update stored offset so scroll transitions don't snap back
-    presetOffset.dTheta = wantTheta - scrollTheta;
-    presetOffset.dPhi   = wantPhi   - scrollPhi;
+    wantTheta -= (e.clientX - dragX) * 0.007;
+    wantPhi    = Math.max(0.05, Math.min(1.45, wantPhi - (e.clientY - dragY) * 0.005));
+    presetDTheta = wantTheta - scrollTheta;
+    presetDPhi   = wantPhi   - scrollPhi;
     dragX = e.clientX; dragY = e.clientY;
 });
-
 canvas.addEventListener('pointerup', e => {
     if (e.pointerType !== 'mouse') return;
-    isDragging = false;
-    canvas.classList.remove('grabbing');
+    isDragging = false; canvas.classList.remove('grabbing');
 });
-
-// Hide the drag hint on touch devices, keep on desktop
 if (window.matchMedia('(hover: none)').matches) {
     document.getElementById('drag-hint').classList.add('hidden');
 }
 
-// ── Build step state ──────────────────────────────────────────
-let drops       = [];
-let glows       = [];
-let shownGroups = 0;
-let groups      = [];
+// ── Build animation state ─────────────────────────────────────
+let drops        = [];
+let glows        = [];
+let shownGroups  = 0;
+let stepGroups   = [];   // THREE.Group[] — one per build step
+let stepMeta     = [];   // {name, rotstep, count}[]
 let TOTAL_GROUPS = 0;
-let modelMidY   = 4;
+let modelMidY    = 3;
 
-function easeOutBack(t) {
-    const c1=1.70158, c3=c1+1;
-    return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);
+function easeOutBack(t)   { const c1=1.70158,c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); }
+function easeInOutQuad(t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+function setGroupEmissive(group, intensity) {
+    group.traverse(child => {
+        if (!child.isMesh) return;
+        if (!child.userData.glowMat) {
+            if (child.material?.transparent) return; // skip glass
+            const m = child.material.clone();
+            m.emissive = new THREE.Color(0x0f62fe);
+            m.emissiveIntensity = 0;
+            child.userData.glowMat  = m;
+            child.userData.baseMat  = child.material;
+        }
+        child.material = child.userData.glowMat;
+        child.material.emissiveIntensity = intensity;
+    });
 }
-function easeInOutQuad(t) { return t<0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
 function revealGroup(gi) {
-    groups[gi].meshes.forEach((mesh, i) => {
+    const g = stepGroups[gi];
+    if (!g) return;
+
+    // Stagger within the group by temporarily offsetting Y per child
+    let idx = 0;
+    g.traverse(child => {
+        if (!child.isMesh && !child.isLine) return;
+        const delay = idx++ * STAGGER_MS;
         setTimeout(() => {
-            mesh.visible = true;
-            mesh.position.y = mesh.userData.finalY + DROP_H;
-            drops.push({ mesh, startY: mesh.position.y, endY: mesh.userData.finalY, elapsed: 0 });
-            if (!mesh.material.transparent) {
-                mesh.material.emissive.setHex(0x0f62fe);
-                mesh.material.emissiveIntensity = 0.55;
-                glows.push({ mesh, elapsed: 0 });
-            }
-        }, i * STAGGER_MS);
+            child.visible = true;
+            child.userData.dropStart = performance.now();
+            child.userData.dropFrom  = DROP_H;
+        }, delay);
     });
+    // Group-level drop (overridden per-child below, but sets up the move)
+    g.visible = true;
+    drops.push({ group: g, startY: DROP_H, endY: 0, elapsed: 0 });
+    glows.push({ group: g, elapsed: 0 });
 }
 
 function hideGroup(gi) {
-    groups[gi].meshes.forEach(mesh => {
-        mesh.visible = false;
-        mesh.position.y = mesh.userData.finalY + DROP_H;
-        mesh.material.emissiveIntensity = 0;
-        drops = drops.filter(d => d.mesh !== mesh);
-        glows = glows.filter(d => d.mesh !== mesh);
-    });
+    const g = stepGroups[gi];
+    if (!g) return;
+    g.visible = false;
+    g.position.y = 0;
+    drops = drops.filter(d => d.group !== g);
+    glows = glows.filter(d => d.group !== g);
+    setGroupEmissive(g, 0);
+}
+
+function applyScrollCam(gi) {
+    const m = stepMeta[Math.min(gi, TOTAL_GROUPS - 1)];
+    if (!m) return;
+    const sph = rotstepToSph(m.rotstep);
+    scrollTheta = sph.theta; scrollPhi = sph.phi;
+    wantTheta = scrollTheta + presetDTheta;
+    wantPhi   = Math.max(0.05, Math.min(1.45, scrollPhi + presetDPhi));
 }
 
 function updateHUD(gi) {
@@ -560,11 +449,10 @@ function updateHUD(gi) {
     const pct = (gi / TOTAL_GROUPS * 100).toFixed(1);
     document.getElementById('progress-fill').style.height = pct + '%';
     document.getElementById('progress-dot').style.top     = pct + '%';
-    const g = groups[gi - 1];
-    if (g) {
-        document.getElementById('step-name').textContent  = g.name;
-        document.getElementById('step-count').textContent =
-            `+${g.meshes.length} brick${g.meshes.length !== 1 ? 's' : ''}`;
+    const m = stepMeta[gi - 1];
+    if (m) {
+        document.getElementById('step-name').textContent  = m.name;
+        document.getElementById('step-count').textContent = `+${m.count} brick${m.count !== 1 ? 's' : ''}`;
     }
     document.querySelectorAll('.step-dot').forEach((dot, i) => {
         dot.classList.toggle('done',    i < gi - 1);
@@ -574,26 +462,14 @@ function updateHUD(gi) {
     document.getElementById('completion').classList.toggle('visible', gi >= TOTAL_GROUPS);
 }
 
-// ── Scroll ────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
     if (!TOTAL_GROUPS) return;
     const gi = Math.min(TOTAL_GROUPS, Math.max(0, Math.floor(window.scrollY / SCROLL_PER)));
-
-    if (gi > shownGroups) {
-        for (let i = shownGroups; i < gi; i++) revealGroup(i);
-    } else if (gi < shownGroups) {
-        for (let i = gi; i < shownGroups; i++) hideGroup(i);
-    }
+    if (gi > shownGroups) for (let i = shownGroups; i < gi; i++) revealGroup(i);
+    else if (gi < shownGroups) for (let i = gi; i < shownGroups; i++) hideGroup(i);
     shownGroups = gi;
-
-    // Update camera angle from ROTSTEP, preserving user's preset offset
-    const g = groups[Math.min(gi, TOTAL_GROUPS - 1)];
-    const sph = rotstepToSph(g.rotstep);
-    applyScrollAngle(sph);
-
-    // Update vertical target as model grows
-    wantTarget.y = modelMidY * (gi / TOTAL_GROUPS) * 0.8 + modelMidY * 0.2;
-
+    applyScrollCam(gi);
+    wantTarget.y = modelMidY * Math.max(0.2, gi / TOTAL_GROUPS * 0.85);
     updateHUD(gi);
 }, { passive: true });
 
@@ -607,22 +483,20 @@ function tick(ts) {
     drops = drops.filter(d => {
         d.elapsed += dt;
         const t = Math.min(d.elapsed / DROP_MS, 1);
-        d.mesh.position.y = d.startY + (d.endY - d.startY) * easeOutBack(t);
+        d.group.position.y = d.startY * (1 - easeOutBack(t));
         return t < 1;
     });
 
     glows = glows.filter(d => {
         d.elapsed += dt;
         const t = Math.min(d.elapsed / GLOW_MS, 1);
-        d.mesh.material.emissiveIntensity = 0.55 * (1 - easeInOutQuad(t));
+        setGroupEmissive(d.group, 0.55 * (1 - easeInOutQuad(t)));
         return t < 1;
     });
 
-    // Smooth spherical camera
     curTheta += (wantTheta - curTheta) * CAM_LERP;
     curPhi   += (wantPhi   - curPhi)   * CAM_LERP;
     curTarget.lerp(wantTarget, CAM_LERP);
-
     camera.position.copy(sphToPos(curTheta, curPhi, CAM_DIST, curTarget));
     camera.lookAt(curTarget);
 
@@ -631,70 +505,119 @@ function tick(ts) {
 requestAnimationFrame(tick);
 
 // ── Load ──────────────────────────────────────────────────────
+function setLoad(pct, msg) {
+    document.getElementById('load-bar-fill').style.width = pct + '%';
+    document.getElementById('load-sub').textContent = msg;
+}
+
 (async () => {
-    const bar = document.getElementById('load-bar-fill');
-    bar.style.width = '20%';
-    let text;
+    setLoad(15, 'Fetching LDraw file…');
+    let ldrText;
     try {
         const resp = await fetch(LDR_URL);
         if (!resp.ok) throw new Error(resp.status);
-        bar.style.width = '65%';
-        text = await resp.text();
+        ldrText = await resp.text();
     } catch {
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('load-error').style.display = 'flex';
         return;
     }
 
-    bar.style.width = '85%';
-    groups = parseLDR(text);
-    TOTAL_GROUPS = groups.length;
+    setLoad(35, 'Parsing build steps…');
+    stepMeta = parseStepMeta(ldrText);
 
-    groups.forEach(group => {
-        group.meshes = group.bricks.map(brick => {
-            const mesh = new THREE.Mesh(makeGeo(brick.partId), getMat(brick.colorId));
-            mesh.quaternion.copy(brick.quat);
-            mesh.position.set(brick.x, brick.y, brick.z);
-            mesh.castShadow = mesh.receiveShadow = true;
-            mesh.visible = false;
-            mesh.userData.finalY = brick.y;
-            scene.add(mesh);
-            return mesh;
+    // Prepare LDR for LDrawLoader: Studio markers → standard STEP
+    const loaderLdr = ldrText
+        .replace(/^0\s+STUDIOSTEPDESC.*$/mg, '0 STEP')
+        .replace(/^0\s+ROTSTEP.*$/mg, '')
+        .replace(/^0\s+CustomBrick.*$/mg, '')
+        .replace(/^0\s+FlexibleBrick.*$/mg, '')
+        .replace(/^0\s+NumOfBricks.*$/mg, '');
+
+    setLoad(45, 'Loading brick geometry…');
+    const blobUrl = URL.createObjectURL(new Blob([loaderLdr], { type: 'text/plain' }));
+
+    const loader = new LDrawLoader();
+    loader.setPath(PARTS_BASE);
+    loader.smoothNormals = false; // hard edges look more like real LEGO
+
+    let model;
+    try {
+        model = await new Promise((resolve, reject) => {
+            loader.load(blobUrl, resolve, null, reject);
         });
+    } catch (e) {
+        console.error('LDrawLoader failed:', e);
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('load-error').style.display = 'flex';
+        return;
+    } finally {
+        URL.revokeObjectURL(blobUrl);
+    }
+
+    setLoad(85, 'Building scene…');
+
+    // LDrawLoader returns model scaled in LDraw units.
+    // Scale so 1 stud (20 LDU) = 1 Three.js unit.
+    model.scale.setScalar(0.05);
+    model.updateMatrixWorld(true);
+
+    // Centre: X/Z to bounding box centre, Y so bottom = 0
+    const box  = new THREE.Box3().setFromObject(model);
+    const cent = box.getCenter(new THREE.Vector3());
+    model.position.set(-cent.x, -box.min.y, -cent.z);
+    model.updateMatrixWorld(true);
+
+    scene.add(model);
+    model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
+
+    // model.children should be one Group per build step
+    // (LDrawLoader creates groups at 0 STEP boundaries)
+    stepGroups   = Array.from(model.children);
+    TOTAL_GROUPS = stepGroups.length;
+
+    // Hide all steps initially; match step metadata
+    stepGroups.forEach((g, i) => {
+        g.visible = false;
+        g.traverse(c => { c.visible = false; });
+        // If loader produced more/fewer groups than our parser, be graceful
+        if (stepMeta[i]) stepMeta[i]._group = g;
     });
 
-    const allY = groups.flatMap(g => g.meshes.map(m => m.userData.finalY));
-    modelMidY = (Math.min(...allY) + Math.max(...allY)) / 2;
+    // Recalculate model mid-Y after positioning
+    const box2  = new THREE.Box3().setFromObject(model);
+    modelMidY = (box2.min.y + box2.max.y) / 2;
     wantTarget.y = modelMidY * 0.2;
     curTarget.y  = wantTarget.y;
 
-    // Seed scroll angle from first group's ROTSTEP
-    const sph0 = rotstepToSph(groups[0].rotstep);
-    scrollTheta = sph0.theta;
-    scrollPhi   = sph0.phi;
-    // Preset 0 (Iso) defines the initial offset
-    presetOffset.dTheta = PRESETS[0].theta - scrollTheta;
-    presetOffset.dPhi   = PRESETS[0].phi   - scrollPhi;
-    wantTheta = PRESETS[0].theta;
-    wantPhi   = PRESETS[0].phi;
-    curTheta  = wantTheta;
-    curPhi    = wantPhi;
+    // Seed camera from first step's ROTSTEP
+    const sph0 = rotstepToSph(stepMeta[0]?.rotstep ?? { x: 14, y: -22 });
+    scrollTheta = sph0.theta; scrollPhi = sph0.phi;
+    presetDTheta = PRESETS[0].theta - scrollTheta;
+    presetDPhi   = PRESETS[0].phi   - scrollPhi;
+    curTheta = wantTheta = PRESETS[0].theta;
+    curPhi   = wantPhi   = PRESETS[0].phi;
+
+    // HUD / scroll setup
+    // Use stepMeta length for display (step names), stepGroups for animation
+    const displayTotal = stepMeta.length;
+    TOTAL_GROUPS = Math.min(stepGroups.length, displayTotal);
 
     document.getElementById('total-steps').textContent = TOTAL_GROUPS;
     document.getElementById('scroll-spacer').style.height =
         (TOTAL_GROUPS * SCROLL_PER + window.innerHeight * 0.5) + 'px';
 
     const dotsEl = document.getElementById('step-dots');
-    groups.forEach(() => {
+    for (let i = 0; i < TOTAL_GROUPS; i++) {
         const d = document.createElement('div');
         d.className = 'step-dot';
         dotsEl.appendChild(d);
-    });
+    }
 
     document.getElementById('step-name').textContent  = 'Scroll to start';
     document.getElementById('step-count').textContent = `${TOTAL_GROUPS} steps · 49 pieces`;
 
-    bar.style.width = '100%';
+    setLoad(100, 'Ready');
     setTimeout(() => document.getElementById('loading').classList.add('hidden'), 400);
 })();
 </script>
